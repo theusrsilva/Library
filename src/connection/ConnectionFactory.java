@@ -61,7 +61,7 @@ public class ConnectionFactory {
         closeConnection(con,stmt);
         try {
             if(rs!=null){
-              rs.close();
+              rs.close();   
         }
         } catch (SQLException ex) {
                 Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
