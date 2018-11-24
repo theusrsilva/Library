@@ -17,6 +17,17 @@ public class Usuario {
     private String email;
     private String senha_hash;
 
+    public Usuario() {
+    }
+
+    public Usuario(String cpf, String nome, String telefone, String email, String senha_hash) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha_hash = senha_hash;
+    }
+
     /**
      * @return the id_usuario
      */
