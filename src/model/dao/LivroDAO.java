@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -108,6 +110,38 @@ public class LivroDAO {
         estoque.setLivro(livro);
         estoque.setQuantidade(1);
         estoqueDAO.save(estoque);
+    }
+    public List<Livro> read(){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Livro> livros= new ArrayList<>();
+        
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM livro");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Livro livro = new Livro();
+                
+                livro.setId_livro(rs.getInt("id_livro"));
+                livro.setTitulo(rs.getString("titulo"));
+                livro.setAno(rs.getInt("ano"));
+                livro.setAutor(rs.getString("autor"));
+                livro.setIsbn(rs.getString("isbn"));
+                livros.add(livro);
+                
+            }
+            
+            
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return livros;
     }
      
     

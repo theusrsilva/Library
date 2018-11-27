@@ -2,8 +2,8 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: 24-Nov-2018 às 21:43
+-- Host: 127.0.0.1:3308
+-- Generation Time: 27-Nov-2018 às 19:44
 -- Versão do servidor: 5.7.23
 -- versão do PHP: 7.2.10
 
@@ -64,12 +64,24 @@ CREATE TABLE IF NOT EXISTS `emprestimo_livro` (
 
 DROP TABLE IF EXISTS `estoque`;
 CREATE TABLE IF NOT EXISTS `estoque` (
-  `id_estoque` int(11) NOT NULL AUTO_INCREMENT,
-  `id_livro` int(11) DEFAULT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_estoque`),
-  KEY `id_livro` (`id_livro`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `id_estoque` int(11) NOT NULL DEFAULT '1',
+  `id_livro` int(11) NOT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_estoque`,`id_livro`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `estoque`
+--
+
+INSERT INTO `estoque` (`id_estoque`, `id_livro`, `quantidade`) VALUES
+(1, 36, 0),
+(1, 35, 0),
+(1, 34, 0),
+(1, 33, 0),
+(1, 32, 0),
+(1, 37, 0),
+(1, 38, 0);
 
 -- --------------------------------------------------------
 
@@ -82,20 +94,28 @@ CREATE TABLE IF NOT EXISTS `livro` (
   `id_livro` int(11) NOT NULL AUTO_INCREMENT,
   `id_estoque` int(11) DEFAULT NULL,
   `autor` varchar(30) NOT NULL,
-  `isbn` char(13) NOT NULL,
+  `isbn` varchar(17) NOT NULL,
   `titulo` varchar(30) NOT NULL,
   `ano` year(4) NOT NULL,
   PRIMARY KEY (`id_livro`),
+  UNIQUE KEY `isbn` (`isbn`),
+  UNIQUE KEY `isbn_2` (`isbn`),
+  UNIQUE KEY `isbn_3` (`isbn`),
   KEY `id_estoque` (`id_estoque`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `livro`
 --
 
 INSERT INTO `livro` (`id_livro`, `id_estoque`, `autor`, `isbn`, `titulo`, `ano`) VALUES
-(1, 0, 'machado', '1234567898912', 'alguem de alguem', 1996),
-(2, 0, 'machado', '1234567898912', 'alguem de alguem', 1996);
+(38, 1, 'gcgcygcg', '747-64-764-7647-5', 'njbjbjbjk', 2000),
+(37, 1, 'kjcscgsuv', '324-79-327-4324-3', 'fhiduhfudif', 2000),
+(36, 1, 'deewfewf', '687-68-767-8688-7', 'diwiudhwfewf', 2000),
+(35, 1, 'George Orwell', '978-98-631-8208-5', 'Revolução dos bichos', 2007),
+(34, 1, 'José Saramago', '978-96-307-9195-3', 'Ensaio sobre a cegueira', 1995),
+(33, 1, 'George Orwell', '978-80-268-7425-6', '1984', 2008),
+(32, 1, 'Dan Brown', '978-90-245-7679-1', 'A Origem', 2017);
 
 -- --------------------------------------------------------
 
@@ -162,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha_hash` varchar(60) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -170,9 +190,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cpf`, `nome`, `telefone`, `email`, `senha_hash`) VALUES
 (1, '123.643.267-37', 'Matheus Rocha', '(21)98477-0307', 'theusrsilva@gmail.com', 'f7c878036d1dde70eedb6fc3e8a994ab'),
-(2, '123.456.789-98', 'Anne Oliveira', '(12)34567-8978', 'dhaiudh@diasah.com', '25f9e794323b453885f5181f1b624d0b'),
-(3, '123.456.789-89', 'Lohan Bruno', '(78)89787-8787', 'hdsaijdh@dghsuai.com', '25f9e794323b453885f5181f1b624d0b'),
-(4, '180.303.417-33', 'anne', '(21)97519-4355', 'anneoliveirar@gmail.com', 'c5c34687fd91d72b1899d04e00153119');
+(5, '149.849.317-33', 'Guilherme Cavalcante', '(21)99319-5740', 'guikcsteam2@gmail.com', 'cb8dc34873148e97abe9b3c776600c36');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

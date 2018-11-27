@@ -5,6 +5,9 @@
  */
 package view;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
 import model.dao.EstoqueDAO;
@@ -15,13 +18,40 @@ import model.dao.LivroDAO;
  * @author Rocha
  */
 public class ViewCadastroLivro extends javax.swing.JFrame {
-
+    public ViewCadastroLivro(){
+        initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivros.getModel();
+        jTableLivros.setRowSorter(new TableRowSorter(modelo));
+        readJTable();
+    }
+    
+     public void readJTable(){
+        DefaultTableModel modelo = (DefaultTableModel)jTableLivros.getModel();
+        modelo.setNumRows(0);
+        LivroDAO dao = new LivroDAO();
+        
+        for( Livro n: dao.read()){
+            modelo.addRow(new Object[]{
+               n.getIsbn(),
+               n.getTitulo(),
+               n.getAutor(),
+               n.getAno()
+            });
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     /**
      * Creates new form ViewCadastroLivro
-     */
-    public ViewCadastroLivro() {
-        initComponents();
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,7 +67,6 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         txtTituloLivro = new javax.swing.JTextField();
         txtAutorLivro = new javax.swing.JTextField();
         txtAno = new javax.swing.JTextField();
-        txtISBNLivro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -45,6 +74,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButtonCadastro = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
+        txtISBNLivro = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,15 +83,15 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Título", "Autor", "Ano", "ISBN"
+                "ISBN", "Título", "Autor", "Ano", "Quantidade"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTableLivros);
@@ -85,6 +115,17 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         });
 
         jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
+            }
+        });
+
+        try {
+            txtISBNLivro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-##-###-####-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,25 +138,25 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButtonAtualizar)
-                                    .addGap(83, 83, 83)
-                                    .addComponent(jButtonCadastro))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtISBNLivro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                                            .addComponent(txtTituloLivro, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addComponent(jLabel1))
-                                    .addGap(51, 51, 51)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel2))
-                                    .addGap(44, 44, 44)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtISBNLivro)
+                                    .addComponent(txtTituloLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(51, 51, 51)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2))
+                                        .addGap(44, 44, 44)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jButtonAtualizar)
+                                        .addGap(83, 83, 83)
+                                        .addComponent(jButtonCadastro)))))
                         .addGap(0, 129, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -140,11 +181,11 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                     .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtISBNLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCadastro)
-                    .addComponent(jButtonAtualizar))
+                    .addComponent(jButtonAtualizar)
+                    .addComponent(txtISBNLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -155,6 +196,8 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroActionPerformed
+
+        
         // TODO add your handling code here:
         Livro n = new Livro();
         LivroDAO dao = new LivroDAO();
@@ -163,9 +206,12 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         n.setIsbn(txtISBNLivro.getText());
        
         n.setAno(Integer.parseInt(txtAno.getText()));
-        
-        
         dao.create(n);
+        txtAno.setText("");
+        txtAutorLivro.setText("");
+        txtTituloLivro.setText("");
+        txtISBNLivro.setText("");
+        readJTable();
         
         
         
@@ -173,6 +219,11 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonCadastroActionPerformed
 
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        // TODO add your handling code here:
+        readJTable();
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
+   
     /**
      * @param args the command line arguments
      */
@@ -220,7 +271,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
     private javax.swing.JTable jTableLivros;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtAutorLivro;
-    private javax.swing.JTextField txtISBNLivro;
+    private javax.swing.JFormattedTextField txtISBNLivro;
     private javax.swing.JTextField txtTituloLivro;
     // End of variables declaration//GEN-END:variables
 }
