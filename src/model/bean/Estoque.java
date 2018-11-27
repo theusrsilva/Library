@@ -11,7 +11,7 @@ package model.bean;
  */
 public class Estoque {
     private int id_estoque;
-    private Livro id_livro;
+    private Livro livro;
     private int quantidade;
 
     public Estoque(int quantidade) {
@@ -29,12 +29,12 @@ public class Estoque {
         this.id_estoque = id_estoque;
     }
 
-    public Livro getId_livro() {
-        return id_livro;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setId_livro(Livro id_livro) {
-        this.id_livro = id_livro;
+    public void setLivro(Livro id_livro) {
+        this.livro = id_livro;
     }
 
     public int getQuantidade() {

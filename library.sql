@@ -2,8 +2,8 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: 21-Nov-2018 às 23:27
+-- Host: 127.0.0.1:3306
+-- Generation Time: 24-Nov-2018 às 21:43
 -- Versão do servidor: 5.7.23
 -- versão do PHP: 7.2.10
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `library`
 --
+CREATE DATABASE IF NOT EXISTS `library` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `library`;
 
 -- --------------------------------------------------------
 
@@ -64,10 +66,10 @@ DROP TABLE IF EXISTS `estoque`;
 CREATE TABLE IF NOT EXISTS `estoque` (
   `id_estoque` int(11) NOT NULL AUTO_INCREMENT,
   `id_livro` int(11) DEFAULT NULL,
-  `quantidade` int(11) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_estoque`),
   KEY `id_livro` (`id_livro`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -85,7 +87,15 @@ CREATE TABLE IF NOT EXISTS `livro` (
   `ano` year(4) NOT NULL,
   PRIMARY KEY (`id_livro`),
   KEY `id_estoque` (`id_estoque`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `livro`
+--
+
+INSERT INTO `livro` (`id_livro`, `id_estoque`, `autor`, `isbn`, `titulo`, `ano`) VALUES
+(1, 0, 'machado', '1234567898912', 'alguem de alguem', 1996),
+(2, 0, 'machado', '1234567898912', 'alguem de alguem', 1996);
 
 -- --------------------------------------------------------
 
@@ -145,13 +155,24 @@ CREATE TABLE IF NOT EXISTS `papel_usuario` (
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `cpf` varchar(11) NOT NULL,
+  `cpf` varchar(14) NOT NULL,
   `nome` varchar(30) NOT NULL,
-  `telefone` varchar(13) DEFAULT NULL,
+  `telefone` varchar(14) DEFAULT NULL,
   `email` varchar(40) NOT NULL,
-  `senha_hash` char(60) NOT NULL,
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `senha_hash` varchar(60) NOT NULL,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `cpf` (`cpf`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `cpf`, `nome`, `telefone`, `email`, `senha_hash`) VALUES
+(1, '123.643.267-37', 'Matheus Rocha', '(21)98477-0307', 'theusrsilva@gmail.com', 'f7c878036d1dde70eedb6fc3e8a994ab'),
+(2, '123.456.789-98', 'Anne Oliveira', '(12)34567-8978', 'dhaiudh@diasah.com', '25f9e794323b453885f5181f1b624d0b'),
+(3, '123.456.789-89', 'Lohan Bruno', '(78)89787-8787', 'hdsaijdh@dghsuai.com', '25f9e794323b453885f5181f1b624d0b'),
+(4, '180.303.417-33', 'anne', '(21)97519-4355', 'anneoliveirar@gmail.com', 'c5c34687fd91d72b1899d04e00153119');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
