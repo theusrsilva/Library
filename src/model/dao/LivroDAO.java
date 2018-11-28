@@ -29,7 +29,7 @@ public class LivroDAO {
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt =null;
-      
+        ResultSet ultimoId = null;
         
         try {
             stmt = con.prepareStatement("INSERT INTO livro (autor,isbn,titulo,ano,id_estoque) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -46,7 +46,8 @@ public class LivroDAO {
             stmt.setInt(5, estoque.getId_estoque());
             stmt.executeUpdate();
             
-            ResultSet ultimoId = stmt.getGeneratedKeys();
+            
+            ultimoId = stmt.getGeneratedKeys();
             int id = 0;
             if(ultimoId.next()){
                 id = ultimoId.getInt(1);
@@ -64,7 +65,7 @@ public class LivroDAO {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar!"+ex);
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con,stmt);
            
         }
         
@@ -72,23 +73,49 @@ public class LivroDAO {
         
         
     }
-    public void updateLivro(){
+    public void updateLivro(String isbn, int qtd){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        Livro livro = findLivroByIsbn(isbn);
+        try {
+            stmt = con.prepareStatement("UPDATE estoque SET quantidade = ? WHERE id_livro = ?");
+            stmt.setInt(1,qtd);
+            stmt.setInt(2,livro.getId_livro());
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+         
+            
+        
+        
+        
+        
+        
+        
+        
         
     }
     
     public Livro findLivroByIsbn(String isbn){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         Livro livro = new Livro();
         try {
             stmt = con.prepareStatement("SELECT *FROM livro INNER JOIN estoque ON (livro.id_livro = estoque.id_livro) WHERE isbn = ? ");
             stmt.setString(1, isbn);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while(rs.next()){
                 livro.setAno(rs.getInt("ano"));
                 livro.setAutor(rs.getString("autor"));
                 livro.setIsbn(isbn);
                 livro.setTitulo(rs.getString("titulo"));
+                livro.setId_livro(rs.getInt("id_livro"));
                 //livro.setEstoque(rs.getInt("id_estoque"));
                 
                 
@@ -98,6 +125,8 @@ public class LivroDAO {
             
         } catch (SQLException ex) {
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt,rs);
         }
         return livro;
     }

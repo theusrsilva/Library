@@ -7,18 +7,22 @@ package view;
 
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.dao.EstoqueDAO;
+import model.dao.LivroDAO;
 
 /**
  *
  * @author Rocha
  */
 public class ViewQtdNova extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form ViewQtdNova
      */
     public ViewQtdNova() {
         initComponents();
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
     }
 
     /**
@@ -43,10 +47,20 @@ public class ViewQtdNova extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         txtQtdAtt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Título");
 
@@ -128,6 +142,22 @@ public class ViewQtdNova extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        // TODO add your handling code here:
+        Livro livro = new Livro();
+        LivroDAO daoLivro = new LivroDAO();
+        Estoque estoque = new Estoque();
+        EstoqueDAO daoEstoque = new EstoqueDAO();
+        daoLivro.updateLivro(txtIsbnAtt.getText(),Integer.parseInt(txtQtdAtt.getText()));
+        this.dispose();
+        
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
