@@ -53,14 +53,18 @@ public class ViewQtdNova extends javax.swing.JFrame {
         jLabel2.setText("Autor");
 
         txtTituloAtt.setEditable(false);
+        txtTituloAtt.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel3.setText("ISBN");
 
         txtAutorAtt.setEditable(false);
+        txtAutorAtt.setForeground(new java.awt.Color(153, 153, 153));
 
         txtIsbnAtt.setEditable(false);
+        txtIsbnAtt.setForeground(new java.awt.Color(153, 153, 153));
 
         txtAnoAtt.setEditable(false);
+        txtAnoAtt.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel4.setText("Ano");
 
@@ -82,16 +86,16 @@ public class ViewQtdNova extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTituloAtt)
+                            .addComponent(txtTituloAtt, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(txtAutorAtt)
                             .addComponent(txtIsbnAtt)
                             .addComponent(txtAnoAtt)
                             .addComponent(txtQtdAtt))))
                 .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(154, 154, 154)
                 .addComponent(jButtonAtualizar)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

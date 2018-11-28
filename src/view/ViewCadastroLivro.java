@@ -62,7 +62,6 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLivros = new javax.swing.JTable();
         txtTituloLivro = new javax.swing.JTextField();
-        txtAutorLivro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -74,6 +73,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         txtQtdLivro = new javax.swing.JTextField();
         jButtonAtualizar = new javax.swing.JButton();
         txtAno = new javax.swing.JFormattedTextField();
+        txtAutorLivro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +91,11 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLivrosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableLivros);
@@ -146,6 +151,12 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        txtAutorLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAutorLivroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,16 +174,21 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                                         .addComponent(txtTituloLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(jLabel4))
-                                .addGap(51, 51, 51)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
                                         .addComponent(jLabel6)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                                            .addComponent(jLabel2)
-                                            .addComponent(txtQtdLivro))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(51, 51, 51)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel2)
+                                                    .addComponent(txtQtdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(44, 44, 44)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
@@ -207,8 +223,8 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
@@ -238,14 +254,14 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         Livro livro = new Livro();
         LivroDAO dao = new LivroDAO();
         livro.setTitulo(txtTituloLivro.getText());
-        livro.setAutor(txtAutorLivro.getText());
+        livro.setAutor(txtAno.getText());
         livro.setIsbn(txtISBNLivro.getText());
         livro.setAno(Integer.parseInt(txtAno.getText()));
         int quantidade = Integer.parseInt(txtQtdLivro.getText());
         dao.create(livro,quantidade);
         
         txtAno.setText("");
-        txtAutorLivro.setText("");
+        txtAno.setText("");
         txtTituloLivro.setText("");
         txtISBNLivro.setText("");
         txtQtdLivro.setText("");
@@ -274,7 +290,17 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         LivroDAO daoLivro = new LivroDAO();
         Estoque estoque = new Estoque();
         EstoqueDAO daoEstoque = new EstoqueDAO();
-        
+        if(jTableLivros.getSelectedRow()!=-1){
+            livro.setIsbn((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 0));
+            livro.setTitulo((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1));
+            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 2));
+            livro.setAno((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 3));
+            estoque.setId_estoque(1);
+            estoque.setQuantidade((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 4));
+            livro.setEstoque(estoque);
+            
+            
+        }
         if(enviaLivro == null && jTableLivros.getSelectedRow()!=-1){
             enviaLivro = new ViewQtdNova();
             enviaLivro.setVisible(true);
@@ -285,6 +311,27 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         }  
         
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void txtAutorLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAutorLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAutorLivroActionPerformed
+
+    private void jTableLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivrosMouseClicked
+        // TODO add your handling code here:
+//        if(jTableLivros.getSelectedRow()!=-1){
+//            Livro livro = new Livro();
+//            Estoque estoque = new Estoque();
+//            livro.setIsbn((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 0));
+//            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1));
+//            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 2));
+//            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 3));
+//            estoque.setId_estoque(1);
+//            estoque.setQuantidade((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1));
+//            livro.setEstoque(estoque);
+//            
+//            
+//        }
+    }//GEN-LAST:event_jTableLivrosMouseClicked
    
     /**
      * @param args the command line arguments
