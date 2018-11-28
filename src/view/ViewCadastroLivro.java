@@ -68,10 +68,10 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButtonCadastro = new javax.swing.JButton();
-        jButtonAtualizar = new javax.swing.JButton();
         txtISBNLivro = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         txtQtdLivro = new javax.swing.JTextField();
+        jButtonAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +93,12 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableLivros);
 
+        txtTituloLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTituloLivroActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Título do livro");
 
         jLabel2.setText("Autor");
@@ -111,13 +117,6 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
             }
         });
 
-        jButtonAtualizar.setText("Atualizar");
-        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAtualizarActionPerformed(evt);
-            }
-        });
-
         try {
             txtISBNLivro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-##-###-####-#")));
         } catch (java.text.ParseException ex) {
@@ -129,6 +128,13 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         txtQtdLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQtdLivroActionPerformed(evt);
+            }
+        });
+
+        jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
             }
         });
 
@@ -161,19 +167,20 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                                             .addComponent(txtQtdLivro))
                                         .addGap(44, 44, 44)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel3)
-                                                .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel3)
+                                                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jButtonAtualizar)
-                                                .addGap(11, 11, 11)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                                        .addComponent(jButtonCadastro)
-                                        .addGap(20, 20, 20))))))
+                                                .addGap(94, 94, 94)
+                                                .addComponent(jButtonCadastro)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(364, 364, 364)
                         .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 414, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -201,11 +208,11 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtISBNLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonCadastro)
+                        .addComponent(txtQtdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonAtualizar)
-                        .addComponent(txtISBNLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtQtdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonCadastro)))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -241,14 +248,33 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonCadastroActionPerformed
 
-    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
-        // TODO add your handling code here:
-        readJTable();
-    }//GEN-LAST:event_jButtonAtualizarActionPerformed
-
     private void txtQtdLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtdLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQtdLivroActionPerformed
+
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        // TODO add your handling code here:
+        Livro livro = new Livro();
+        LivroDAO dao = new LivroDAO();
+        livro.setTitulo(txtTituloLivro.getText());
+        livro.setAutor(txtAutorLivro.getText());
+        livro.setIsbn(txtISBNLivro.getText());
+        livro.setAno(Integer.parseInt(txtAno.getText()));
+        int quantidade = Integer.parseInt(txtQtdLivro.getText());
+        dao.create(livro,quantidade);
+        
+        txtAno.setText("");
+        txtAutorLivro.setText("");
+        txtTituloLivro.setText("");
+        txtISBNLivro.setText("");
+        txtQtdLivro.setText("");
+        readJTable();
+        
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void txtTituloLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTituloLivroActionPerformed
    
     /**
      * @param args the command line arguments
@@ -281,6 +307,14 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ViewCadastroLivro().setVisible(true);
+                LivroDAO dao = new LivroDAO();
+                Livro livro = dao.findLivroByIsbn("747-64-764-7647-5");
+                System.out.println(livro.getAno());
+                System.out.println(livro.getAutor());
+                System.out.println(livro.getEstoque());
+                System.out.println(livro.getId_livro());
+                System.out.println(livro.getIsbn());
+                System.out.println(livro.getTitulo());
                 
             }
         });

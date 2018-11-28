@@ -78,7 +78,7 @@ public class LivroDAO {
         PreparedStatement stmt = null;
         Livro livro = new Livro();
         try {
-            stmt = con.prepareStatement("SELECT * FROM livro WHERE isbn = ?");
+            stmt = con.prepareStatement("SELECT *FROM livro INNER JOIN estoque ON (livro.id_livro = estoque.id_livro) WHERE isbn = ? ");
             stmt.setString(1, isbn);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
