@@ -7,7 +7,6 @@ package view;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
@@ -20,6 +19,10 @@ import model.dao.LivroDAO;
  */
 public class ViewCadastroLivro extends javax.swing.JFrame {
     ViewQtdNova enviaLivro;
+    Livro livro = new Livro();
+    LivroDAO dao = new LivroDAO();
+    Estoque estoque = new Estoque();
+    EstoqueDAO daoEstoque = new EstoqueDAO();
     public ViewCadastroLivro(){
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTableLivros.getModel();
@@ -78,6 +81,11 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         txtVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jTableLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +106,11 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         jTableLivros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableLivrosMouseClicked(evt);
+            }
+        });
+        jTableLivros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTableLivrosKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(jTableLivros);
@@ -192,8 +205,9 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel6))
+                                .addGap(51, 560, Short.MAX_VALUE)
+                                .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -204,8 +218,8 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                            .addComponent(jLabel6)
+                                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -213,44 +227,40 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
                                         .addGap(83, 83, 83)
                                         .addComponent(jButtonCadastro))
                                     .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))))
-                        .addGap(4, 18, Short.MAX_VALUE)
-                        .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
+                                    .addComponent(jLabel3))
+                                .addGap(1, 92, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtVoltar)
+                        .addGap(289, 289, 289)
+                        .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtVoltar)
+                    .addComponent(jLabel5))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtVoltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel5)
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTituloLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtISBNLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -301,32 +311,13 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloLivroActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
-        // TODO add your handling code here:
-                                                     
-        // TODO add your handling code here:
+        // TODO add your handling code here:S
         
-        Livro livro = new Livro();
-        LivroDAO daoLivro = new LivroDAO();
-        Estoque estoque = new Estoque();
-        EstoqueDAO daoEstoque = new EstoqueDAO();
-        if(jTableLivros.getSelectedRow()!=-1){
-            livro.setIsbn((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 0));
-            livro.setTitulo((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1));
-            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 2));
-            livro.setAno((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 3));
-            estoque.setQuantidade((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 4));
-            
-            
-        }
-        if(enviaLivro == null && jTableLivros.getSelectedRow()!=-1){
             enviaLivro = new ViewQtdNova();
             enviaLivro.setVisible(true);
             enviaLivro.recebeLivro(livro, estoque);
             
-        }else{
-            JOptionPane.showMessageDialog(null,"Nenhum Livro selecionado!");
-            
-        }  
+         
         
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
@@ -336,19 +327,17 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
 
     private void jTableLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivrosMouseClicked
         // TODO add your handling code here:
-//        if(jTableLivros.getSelectedRow()!=-1){
-//            Livro livro = new Livro();
-//            Estoque estoque = new Estoque();
-//            livro.setIsbn((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 0));
-//            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1));
-//            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 2));
-//            livro.setAutor((String) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 3));
-//            estoque.setId_estoque(1);
-//            estoque.setQuantidade((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1));
-//            livro.setEstoque(estoque);
-//            
-//            
-//        }
+        if(jTableLivros.getSelectedRow()!=-1){
+            livro.setIsbn( jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 0).toString());
+            livro.setTitulo( jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1).toString());
+            livro.setAutor( jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 2).toString());
+            livro.setAno((int)jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 3));
+            estoque.setId_estoque(1);
+            estoque.setQuantidade((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 4));
+            livro.setEstoque(estoque);
+            
+            
+        }
     }//GEN-LAST:event_jTableLivrosMouseClicked
 
     private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
@@ -361,7 +350,29 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         new ViewHomeAdm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_txtVoltarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+        
    
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jTableLivrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableLivrosKeyReleased
+        // TODO add your handling code here:
+        if(jTableLivros.getSelectedRow()!=-1){
+            livro.setIsbn( jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 0).toString());
+            livro.setTitulo( jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 1).toString());
+            livro.setAutor( jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 2).toString());
+            livro.setAno((int)jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 3));
+            estoque.setId_estoque(1);
+            estoque.setQuantidade((int) jTableLivros.getValueAt(jTableLivros.getSelectedRow(), 4));
+            livro.setEstoque(estoque);
+            
+            
+        }
+    }//GEN-LAST:event_jTableLivrosKeyReleased
+    
     /**
      * @param args the command line arguments
      */
@@ -420,4 +431,12 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
     private javax.swing.JTextField txtTituloLivro;
     private javax.swing.JButton txtVoltar;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
+
+
+
+
+

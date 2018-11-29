@@ -5,10 +5,6 @@
  */
 package view;
 
-import javax.swing.SwingConstants;
-import model.bean.Estoque;
-import model.bean.Livro;
-
 /**
  *
  * @author Rocha
@@ -23,7 +19,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
     }
     public void recebeNome(String nome){
         
-        txtOq.setText(nome);
+        txtOq.setText("O que deseja Fazer "+nome);
         
         
         
@@ -45,6 +41,12 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(395, 303));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         txtOq.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtOq.setText("O que deseja fazer");
@@ -70,17 +72,17 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
+                .addGap(93, 93, 93)
+                .addComponent(txtOq)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addGap(70, 70, 70))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonGUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonGLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(137, 137, 137))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(txtOq)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +95,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
                 .addComponent(jButtonGLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
                 .addComponent(jButtonGUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(100, 100, 100))
+                .addGap(68, 68, 68))
         );
 
         pack();
@@ -102,7 +104,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
     private void jButtonGLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGLivrosActionPerformed
         // TODO add your handling code here:
-        new ViewCadastroLivro();
+        new ViewCadastroLivro().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonGLivrosActionPerformed
 
@@ -111,6 +113,11 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         new ViewEditUsuario().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonGUsuariosActionPerformed
+    //Setta a data e hora sendo que tem a interface hora sobrescrita no fim
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -143,6 +150,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ViewHomeAdm().setVisible(true);
+                
             }
         });
     }
@@ -153,4 +161,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
     private javax.swing.JLabel txtNome;
     private javax.swing.JLabel txtOq;
     // End of variables declaration//GEN-END:variables
-}
+//Sobrescrevendo a interface hora
+
+    }
+

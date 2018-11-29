@@ -181,7 +181,7 @@ public class LivroDAO {
         
         
         try {
-            stmt=con.prepareStatement("SELECT * FROM livro INNER JOIN estoque ON (livro.id_livro = estoque.id_livro) WHERE (titulo LIKE ? OR autor LIKE ?)");
+            stmt=con.prepareStatement("SELECT * FROM livro INNER JOIN estoque ON (livro.id_livro = estoque.id_livro) WHERE (titulo LIKE ? OR autor LIKE ? )");
             stmt.setString(1,"%"+str+"%");
             stmt.setString(2,"%"+str+"%");
             rs = stmt.executeQuery();
