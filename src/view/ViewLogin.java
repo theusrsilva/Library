@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.JOptionPane;
+import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 
 /**
@@ -13,7 +14,7 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewLogin extends javax.swing.JFrame {
-
+    ViewHomeAdm enviaNome;
     /**
      * Creates new form ViewLogin
      */
@@ -121,9 +122,16 @@ public class ViewLogin extends javax.swing.JFrame {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
         UsuarioDAO dao = new UsuarioDAO();
+        Usuario usuario = new Usuario();
+        
         if(dao.checkLogin(txtCpf.getText(), txtsenha.getText())){
-            new ViewHome().setVisible(true);
+            enviaNome = new ViewHomeAdm();
+            enviaNome.setVisible(true);
+            usuario = dao.findByCpf(txtCpf.getText());
+            
+            enviaNome.recebeNome(usuario.getPrimeiroNome(usuario));
             this.dispose();
+            
         }else{
             JOptionPane.showMessageDialog(null,"dados incorretos!");
             

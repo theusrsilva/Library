@@ -50,6 +50,40 @@ public class UsuarioDAO {
                 }
             return check;
             }
+        public Usuario findByCpf(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs=null;
+            Usuario usuario = new Usuario();
+            
+            try{
+                stmt = con.prepareStatement("SELECT * FROM usuario WHERE cpf = ?");
+                stmt.setString(1, cpf);
+                rs = stmt.executeQuery();
+                while(rs.next()){
+                usuario.setNome(rs.getString("nome"));
+                usuario.setCpf(cpf);
+                usuario.setEmail(rs.getString("email"));
+                usuario.setId_usuario(rs.getInt("id_usuario"));
+                usuario.setTelefone(rs.getString("telefone"));
+                
+                
+                
+                
+            }
+                
+                
+                }catch (SQLException ex){
+                        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,ex);
+                } finally{
+                           ConnectionFactory.closeConnection(con, stmt, rs);
+                    
+                    
+                    
+                }
+            return usuario;
+        }
+        
             
         public void create(Usuario u){
             Connection con = ConnectionFactory.getConnection();

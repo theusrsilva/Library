@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/view/ViewHomeAdm.java</file>
             <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/view/ViewCadastroLivro.java</file>
+            <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/model/dao/UsuarioDAO.java</file>
             <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/view/ViewQtdNova.java</file>
-            <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/model/bean/Livro.java</file>
             <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/model/dao/LivroDAO.java</file>
+            <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/model/bean/Usuario.java</file>
+            <file>file:/C:/Users/Rocha/Desktop/Trabalho%20poo/Library/src/view/ViewLogin.java</file>
         </group>
     </open-files>
 </project-private>

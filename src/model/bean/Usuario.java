@@ -19,6 +19,14 @@ public class Usuario {
 
     public Usuario() {
     }
+    public String getPrimeiroNome(Usuario usuario){
+            String nome = usuario.getNome();
+            if(nome.contains(" ")){
+                nome= nome.substring(0, nome.indexOf(" ")); 
+            }
+            return nome;
+            
+        }
 
     public Usuario(String cpf, String nome, String telefone, String email, String senha_hash) {
         this.cpf = cpf;
