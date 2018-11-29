@@ -90,15 +90,7 @@ public class LivroDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
          
-            
-        
-        
-        
-        
-        
-        
-        
-        
+         
     }
     
     public Livro findLivroByIsbn(String isbn){
@@ -150,6 +142,48 @@ public class LivroDAO {
         
         try {
             stmt=con.prepareStatement("SELECT * FROM livro INNER JOIN estoque ON (livro.id_livro = estoque.id_livro)");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Livro livro = new Livro();
+                Estoque estoque = new Estoque();
+                
+                estoque.setId_estoque(rs.getInt("id_estoque"));
+                
+                
+                
+                livro.setId_livro(rs.getInt("id_livro"));
+                livro.setTitulo(rs.getString("titulo"));
+                livro.setAno(rs.getInt("ano"));
+                livro.setAutor(rs.getString("autor"));
+                livro.setIsbn(rs.getString("isbn"));
+                estoque.setLivro(livro);
+                livro.setEstoque(estoque);
+                estoque.setQuantidade(rs.getInt("quantidade"));
+                livros.add(livro);
+                
+            }
+            
+            
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return livros;
+    }
+    public List<Livro> search(String str){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Livro> livros= new ArrayList<>();
+        
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM livro INNER JOIN estoque ON (livro.id_livro = estoque.id_livro) WHERE (titulo LIKE ? OR autor LIKE ?)");
+            stmt.setString(1,"%"+str+"%");
+            stmt.setString(2,"%"+str+"%");
             rs = stmt.executeQuery();
             
             while(rs.next()){
