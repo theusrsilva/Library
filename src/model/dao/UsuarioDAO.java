@@ -83,7 +83,58 @@ public class UsuarioDAO {
                 }
             return usuario;
         }
+        public List<Usuario> findAll(){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Usuario> usuarios= new ArrayList<>();
         
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM usuario");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Usuario usuario = new Usuario();
+                
+                usuario.setId_usuario(rs.getInt("id_usuario"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setTelefone(rs.getString("telefone"));
+                
+                usuarios.add(usuario);
+                
+            }
+            
+            
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return usuarios;
+    }
+        public void updateUsuario(Usuario usuario){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        Usuario u = usuario;
+        try {
+            stmt = con.prepareStatement("UPDATE usuario SET nome = ? , email = ? , telefone = ? WHERE cpf = ? ");
+            stmt.setString(1,usuario.getNome());
+            stmt.setString(2,usuario.getEmail());
+            stmt.setString(3,usuario.getTelefone());
+            stmt.setString(4,usuario.getCpf());
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
             
         public void create(Usuario u){
             Connection con = ConnectionFactory.getConnection();
