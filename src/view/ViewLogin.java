@@ -124,6 +124,7 @@ public class ViewLogin extends javax.swing.JFrame {
         UsuarioDAO dao = new UsuarioDAO();
         Usuario usuario = new Usuario();
         ViewHomeAdm enviaNomeAdm;
+        ViewHomeUsuario enviaNomeUsuario;
         //ViewHomeUsuario enviaNomeUsuario;
         
         if(dao.checkLogin(txtCpf.getText(), txtsenha.getText())){
@@ -131,10 +132,12 @@ public class ViewLogin extends javax.swing.JFrame {
             if(dao.isAdmin(usuario.getCpf())){
                 enviaNomeAdm = new ViewHomeAdm();
                 enviaNomeAdm.setVisible(true);
+                enviaNomeAdm.recebeNome(usuario.getPrimeiroNome(usuario));
             }
             else{
-//                enviaNomeUsuario = new ViewHomeUsuario;
-//                enviaNomeUsuario.setVisible(true);
+                enviaNomeUsuario = new ViewHomeUsuario();
+                enviaNomeUsuario.setVisible(true);
+                enviaNomeUsuario.recebeNome(usuario.getPrimeiroNome(usuario));
             }
             
             

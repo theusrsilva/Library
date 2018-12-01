@@ -31,7 +31,6 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
         modelo.setNumRows(0);
-        LivroDAO dao = new LivroDAO();
 
         for (Livro n : livrosSelecionadosc) {
             modelo.addRow(new Object[]{
