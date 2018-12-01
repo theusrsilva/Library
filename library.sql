@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: 27-Nov-2018 às 19:44
+-- Generation Time: 01-Dez-2018 às 18:34
 -- Versão do servidor: 5.7.23
 -- versão do PHP: 7.2.10
 
@@ -23,6 +23,20 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `library` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `library`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  PRIMARY KEY (`id_admin`),
+  UNIQUE KEY `id_usuario` (`id_usuario`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -76,12 +90,21 @@ CREATE TABLE IF NOT EXISTS `estoque` (
 
 INSERT INTO `estoque` (`id_estoque`, `id_livro`, `quantidade`) VALUES
 (1, 36, 0),
-(1, 35, 0),
-(1, 34, 0),
-(1, 33, 0),
-(1, 32, 0),
-(1, 37, 0),
-(1, 38, 0);
+(1, 35, 5),
+(1, 34, 5),
+(1, 33, 9),
+(1, 32, 7),
+(1, 37, 17),
+(1, 38, 8),
+(1, 39, 7),
+(1, 40, 3),
+(1, 41, 20),
+(1, 42, 14),
+(1, 43, 14),
+(1, 44, 25),
+(1, 45, 158),
+(1, 46, 3),
+(1, 47, 23);
 
 -- --------------------------------------------------------
 
@@ -102,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `livro` (
   UNIQUE KEY `isbn_2` (`isbn`),
   UNIQUE KEY `isbn_3` (`isbn`),
   KEY `id_estoque` (`id_estoque`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `livro`
@@ -115,7 +138,16 @@ INSERT INTO `livro` (`id_livro`, `id_estoque`, `autor`, `isbn`, `titulo`, `ano`)
 (35, 1, 'George Orwell', '978-98-631-8208-5', 'Revolução dos bichos', 2007),
 (34, 1, 'José Saramago', '978-96-307-9195-3', 'Ensaio sobre a cegueira', 1995),
 (33, 1, 'George Orwell', '978-80-268-7425-6', '1984', 2008),
-(32, 1, 'Dan Brown', '978-90-245-7679-1', 'A Origem', 2017);
+(32, 1, 'Dan Brown', '978-90-245-7679-1', 'A Origem', 2017),
+(39, 1, 'fdsfsdf', '547-45-789-7897-8', 'bijfdsh', 2000),
+(40, 1, '2000', '748-94-789-7897-4', 'dhauidh', 2000),
+(41, 1, '2000', '656-56-858-5898-9', 'matheus', 2000),
+(42, 1, 'lohan', '564-56-788-6576-8', 'lohan', 2000),
+(43, 1, 'fdsfdsfd', '536-46-789-7897-8', 'bnfdsjkhfbdjsik', 1998),
+(44, 1, 'Creuza', '455-64-897-8978-9', 'Creuza', 2000),
+(45, 1, 'fdsfds', '548-97-897-8978-9', 'dasfsaddf', 2000),
+(46, 1, 'asdsadas', '454-56-748-9789-7', 'dfjcksbhafjkd', 2000),
+(47, 1, 'teste', '897-89-465-4684-8', 'teste', 1999);
 
 -- --------------------------------------------------------
 
@@ -138,37 +170,6 @@ CREATE TABLE IF NOT EXISTS `multa` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `papel`
---
-
-DROP TABLE IF EXISTS `papel`;
-CREATE TABLE IF NOT EXISTS `papel` (
-  `id_papel` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) DEFAULT NULL,
-  `nome` varchar(30) NOT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id_papel`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `papel_usuario`
---
-
-DROP TABLE IF EXISTS `papel_usuario`;
-CREATE TABLE IF NOT EXISTS `papel_usuario` (
-  `id_usuario` int(11) DEFAULT NULL,
-  `id_papel` int(11) DEFAULT NULL,
-  `nome` varchar(30) DEFAULT NULL,
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_papel` (`id_papel`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `usuario`
 --
 
@@ -182,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha_hash` varchar(60) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -190,7 +191,22 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cpf`, `nome`, `telefone`, `email`, `senha_hash`) VALUES
 (1, '123.643.267-37', 'Matheus Rocha', '(21)98477-0307', 'theusrsilva@gmail.com', 'f7c878036d1dde70eedb6fc3e8a994ab'),
-(5, '149.849.317-33', 'Guilherme Cavalcante', '(21)99319-5740', 'guikcsteam2@gmail.com', 'cb8dc34873148e97abe9b3c776600c36');
+(5, '149.849.317-33', 'Guilherme Cavalcante', '(21)99319-5740', 'guikcsteam2@gmail.com', 'cb8dc34873148e97abe9b3c776600c36'),
+(6, '999.999.999-99', 'Teste', '(99)99999-9999', 'theusrsilva@gmail.com', 'b706835de79a2b4e80506f582af3676a');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario_admin`
+--
+
+DROP TABLE IF EXISTS `usuario_admin`;
+CREATE TABLE IF NOT EXISTS `usuario_admin` (
+  `id_usuario` int(11) NOT NULL,
+  `id_admin` int(11) NOT NULL,
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_admin` (`id_admin`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

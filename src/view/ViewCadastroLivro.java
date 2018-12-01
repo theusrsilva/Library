@@ -312,7 +312,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
         // TODO add your handling code here:S
-        
+            if(jTableLivros.getSelectedRow()!=-1){
             enviaLivro = new ViewQtdNova();
             enviaLivro.setVisible(true);
             enviaLivro.recebeLivro(livro, estoque);
@@ -320,7 +320,10 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
          
         
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
-
+        else{
+                JOptionPane.showMessageDialog(null,"nenhum usuário selecionado!");
+}
+    }
     private void txtAutorLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAutorLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAutorLivroActionPerformed
