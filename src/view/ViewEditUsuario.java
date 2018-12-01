@@ -16,10 +16,9 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewEditUsuario extends javax.swing.JFrame {
-<<<<<<< HEAD
+
     private Usuario usuario = new Usuario();
-=======
->>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
+
     private UsuarioDAO dao = new UsuarioDAO();
     /**
      * Creates new form ViewEditUsuario
@@ -34,10 +33,7 @@ public class ViewEditUsuario extends javax.swing.JFrame {
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
         modelo.setNumRows(0);
-<<<<<<< HEAD
 
-=======
->>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
         for (Usuario usuario : dao.findAll()) {
             modelo.addRow(new Object[]{
                 usuario.getNome(),
@@ -250,11 +246,9 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
 
-=======
         Usuario usuario = new Usuario();
->>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
+
         usuario.setNome(txtNome.getText());
         usuario.setEmail(txtEmail.getText());
         usuario.setTelefone(txtTelefone.getText());
@@ -266,12 +260,9 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
     private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
         // TODO add your handling code here:
-<<<<<<< HEAD
-        
 
-=======
         Usuario usuario = new Usuario();
->>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
+
         usuario.setNome((String) jTableUsuarios.getValueAt(jTableUsuarios.getSelectedRow(), 0));
         usuario.setCpf((String) jTableUsuarios.getValueAt(jTableUsuarios.getSelectedRow(), 1));
         usuario.setEmail((String) jTableUsuarios.getValueAt(jTableUsuarios.getSelectedRow(), 2));
@@ -289,21 +280,18 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-<<<<<<< HEAD
+
         String cpf = txtCpf.getText();
-=======
-        String cpf =  txtCpf.getText();
->>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
+
+
         dao.delete(cpf);
         readJTable();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
-<<<<<<< HEAD
+
         String cpf = txtCpf.getText();
-=======
-      String cpf =  txtCpf.getText();
->>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
+
         dao.addAdmin(cpf);
         readJTable();
     }//GEN-LAST:event_jButtonAdminActionPerformed
