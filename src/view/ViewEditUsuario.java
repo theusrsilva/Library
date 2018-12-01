@@ -39,8 +39,9 @@ public class ViewEditUsuario extends javax.swing.JFrame {
                 usuario.getNome(),
                 usuario.getCpf(),
                 usuario.getEmail(),
-                usuario.getTelefone()
-
+                usuario.getTelefone(),
+                dao.isAdmin(usuario.getCpf())
+                
             });
         }
     }
@@ -292,10 +293,10 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
         String cpf = txtCpf.getText();
         if(!dao.isAdmin(cpf)){
-        dao.addAdmin(cpf);
-        readJTable();
+            dao.addAdmin(cpf);
+            readJTable();
         }else{
-            JOptionPane.showMessageDialog(null, "Usu[ario já é admin!");
+            JOptionPane.showMessageDialog(null, "Usuário já é admin!");
         }
     }//GEN-LAST:event_jButtonAdminActionPerformed
 
