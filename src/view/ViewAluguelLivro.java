@@ -326,6 +326,9 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
+        new ViewHomeUsuario().setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
