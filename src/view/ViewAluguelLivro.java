@@ -21,7 +21,9 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
-    List<Livro> livros= new ArrayList<>();
+    List<Livro> livrosSelecionados= new ArrayList<>();
+    ViewConfirmEmprestimo enviaLista;
+    
     /**
      * Creates new form ViewAluguelLivro
      */
@@ -30,8 +32,8 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosAluguel.getModel();
         jTableLivrosAluguel.setRowSorter(new TableRowSorter(modelo));
-        livros.clear();
-        txtQuantidade.setText(String.valueOf(livros.size()));
+        livrosSelecionados.clear();
+        txtQuantidade.setText(String.valueOf(livrosSelecionados.size()));
         readJTable();
         
     }
@@ -334,7 +336,12 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
     private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
         // TODO add your handling code here:
-       new ViewConfirmEmprestimo().setVisible(true);
+       if(Integer.parseInt(txtQuantidade.getText())>0){
+           enviaLista =new ViewConfirmEmprestimo();
+           enviaLista.setVisible(true);
+           enviaLista.recebeLista(livrosSelecionados);
+       }
+        
        
     }//GEN-LAST:event_jButtonAlugarActionPerformed
 
@@ -350,8 +357,8 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         LivroDAO livrodao = new LivroDAO();
         livro = livrodao.findLivroByIsbn((String) jTableLivrosAluguel.getValueAt(jTableLivrosAluguel.getSelectedRow(), 0));
         int i = 0;
-        if(livros.size()<3){
-            for(Livro n : livros){
+        if(livrosSelecionados.size()<3){
+            for(Livro n : livrosSelecionados){
                 if(n.getIsbn().equals(livro.getIsbn())){
                     JOptionPane.showMessageDialog(null,"Livro já selecionado!");
                     i =1;
@@ -364,7 +371,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Livro esgotado!");
             }
             if(i==0){
-                livros.add(livro);
+                livrosSelecionados.add(livro);
             }
             
         }else{
@@ -372,7 +379,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         }
         
         
-        txtQuantidade.setText(String.valueOf(livros.size()));
+        txtQuantidade.setText(String.valueOf(livrosSelecionados.size()));
     
 
         

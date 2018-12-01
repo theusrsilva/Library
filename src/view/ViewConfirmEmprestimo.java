@@ -5,19 +5,43 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import model.bean.Estoque;
+import model.bean.Livro;
+import model.dao.LivroDAO;
+
 /**
  *
  * @author Rocha
  */
 public class ViewConfirmEmprestimo extends javax.swing.JFrame {
-
+    List<Livro> livrosSelecionadosc= new ArrayList<>();
     /**
      * Creates new form ViewConfirmEmprestimo
      */
     public ViewConfirmEmprestimo() {
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
+        jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
+        readJTable();
     }
+    public void readJTable() {
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
+        modelo.setNumRows(0);
+        LivroDAO dao = new LivroDAO();
 
+        for (Livro n : livrosSelecionadosc) {
+            modelo.addRow(new Object[]{
+                n.getIsbn(),
+                n.getTitulo(),
+                n.getAutor(),
+                n.getAno()
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,16 +52,18 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableLivrosSelecionados = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLivrosSelecionados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ISBN", "Título", "Autor", "Ano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -48,7 +74,11 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableLivrosSelecionados);
+
+        jButton1.setText("Confirmar Empréstimo");
+
+        jButton2.setText("Remover livro da lista");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,18 +86,29 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -104,9 +145,14 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             }
         });
     }
+    public void recebeLista(List<Livro> livros){
+        livrosSelecionadosc=livros;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableLivrosSelecionados;
     // End of variables declaration//GEN-END:variables
 }
