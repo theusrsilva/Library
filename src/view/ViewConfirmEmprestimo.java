@@ -5,22 +5,43 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.dao.LivroDAO;
 
 /**
  *
  * @author Rocha
  */
 public class ViewConfirmEmprestimo extends javax.swing.JFrame {
-
+    List<Livro> livrosSelecionadosc= new ArrayList<>();
     /**
      * Creates new form ViewConfirmEmprestimo
      */
     public ViewConfirmEmprestimo() {
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
+        jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
+        readJTable();
     }
+    public void readJTable() {
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
+        modelo.setNumRows(0);
+        LivroDAO dao = new LivroDAO();
 
+        for (Livro n : livrosSelecionadosc) {
+            modelo.addRow(new Object[]{
+                n.getIsbn(),
+                n.getTitulo(),
+                n.getAutor(),
+                n.getAno()
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,13 +52,13 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableLivrosSelecionados = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLivrosSelecionados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -53,7 +74,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableLivrosSelecionados);
 
         jButton1.setText("Confirmar Empréstimo");
 
@@ -124,20 +145,14 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             }
         });
     }
-    public void recebeLivro(Livro livro, Estoque estoque){
-        
-//        txtAnoAtt.setText(String.valueOf(livro.getAno()));
-//        txtAutorAtt.setText(livro.getAutor());
-//        txtIsbnAtt.setText(livro.getIsbn());
-//        txtTituloAtt.setText(livro.getTitulo());
-//        txtQtdAtt.setText(String.valueOf(estoque.getQuantidade()));
-        
+    public void recebeLista(List<Livro> livros){
+        livrosSelecionadosc=livros;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableLivrosSelecionados;
     // End of variables declaration//GEN-END:variables
 }
