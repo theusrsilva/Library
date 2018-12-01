@@ -21,8 +21,8 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
-    List<Livro> livrosSelecionados= new ArrayList<>();
-    ViewConfirmEmprestimo enviaLista;
+    private List<Livro> livrosSelecionados= new ArrayList<>();
+  
     
     /**
      * Creates new form ViewAluguelLivro
@@ -336,10 +336,12 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
     private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
         // TODO add your handling code here:
+
        if(Integer.parseInt(txtQuantidade.getText())>0){
-           enviaLista =new ViewConfirmEmprestimo();
+           ViewConfirmEmprestimo enviaLista;
+           enviaLista =new ViewConfirmEmprestimo(livrosSelecionados);
            enviaLista.setVisible(true);
-           enviaLista.recebeLista(livrosSelecionados);
+           
        }
         
        
@@ -371,7 +373,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Livro esgotado!");
             }
             if(i==0){
-                livrosSelecionados.add(livro);
+                livrosSelecionados.add(livro);          
             }
             
         }else{

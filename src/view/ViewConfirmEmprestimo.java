@@ -18,7 +18,7 @@ import model.dao.LivroDAO;
  * @author Rocha
  */
 public class ViewConfirmEmprestimo extends javax.swing.JFrame {
-    List<Livro> livrosSelecionadosc= new ArrayList<>();
+    private List<Livro> livrosSelecionadosc= new ArrayList<>();
     /**
      * Creates new form ViewConfirmEmprestimo
      */
@@ -28,6 +28,15 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
         readJTable();
     }
+    
+    public ViewConfirmEmprestimo(List<Livro> livros) {
+        initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
+        jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
+        this.setLista(livros);
+        readJTable();
+    }
+    
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
         modelo.setNumRows(0);
@@ -145,8 +154,8 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             }
         });
     }
-    public void recebeLista(List<Livro> livros){
-        livrosSelecionadosc=livros;
+    public void setLista(List<Livro> livros){
+        this.livrosSelecionadosc=livros;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
