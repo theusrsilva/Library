@@ -201,6 +201,7 @@ public class UsuarioDAO {
                }
             }
         }
+<<<<<<< HEAD
        
        
        public boolean isAdmin(String cpf){
@@ -228,6 +229,18 @@ public class UsuarioDAO {
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
            
+=======
+        
+        
+//        public void isAdmin(String cpf){
+//            
+//        }
+//        
+        public void delete(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            
+>>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
             try{
                 stmt = con.prepareStatement("DELETE u, ua, a FROM usuario u INNER JOIN usuario_admin ua ON (u.id_usuario = ua.id_usuario) INNER JOIN admin a ON (ua.id_admin = a.id_admin)  WHERE cpf = ?");
                 stmt.setString(1, cpf);
@@ -239,4 +252,8 @@ public class UsuarioDAO {
                            ConnectionFactory.closeConnection(con, stmt);
             }
         }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9cea59ec004bba91093378687590a8f6b74fc2d0
