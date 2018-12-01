@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -79,7 +80,10 @@ public class UsuarioDAO {
                            ConnectionFactory.closeConnection(con, stmt, rs);
                     
                     
-                    
+                
+                }
+            if (usuario.getCpf() == null){
+                    return null;
                 }
             return usuario;
         }
@@ -162,5 +166,55 @@ public class UsuarioDAO {
         }
             
         }
+        
+        public void addAdmin(String cpf){
+            Usuario usuario = findByCpf(cpf);
+            if (usuario != null){
+                Connection con = ConnectionFactory.getConnection();
+                PreparedStatement stmt = null;
+                Connection con2 = ConnectionFactory.getConnection();
+                PreparedStatement stmt2 = null;
+                ResultSet ultimoId = null;
 
+                try {
+                stmt = con.prepareStatement("INSERT INTO admin (id_usuario) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+                stmt.setInt(1,usuario.getId_usuario());
+                stmt.executeUpdate();
+                ultimoId = stmt.getGeneratedKeys();
+                int idAdmin = 0;
+                if(ultimoId.next()){
+                    idAdmin = ultimoId.getInt(1);
+                }
+                stmt2 = con.prepareStatement("INSERT INTO usuario_admin (id_usuario,id_admin) VALUES(?,?) ");
+                stmt2.setInt(1, usuario.getId_usuario());
+                stmt2.setInt(2, idAdmin);
+                stmt2.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Admin adicionado com sucesso!");
+
+
+               }catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro ao adicionar admin!"+ex);
+
+               }finally{
+                ConnectionFactory.closeConnection(con, stmt,ultimoId);
+                ConnectionFactory.closeConnection(con2, stmt2);
+               }
+            }
+        }
+        
+        
+//        public void isAdmin(String cpf){
+//            
+//        }
+//        
+//        public void delete(String cpf){
+//            Connection con = ConnectionFactory.getConnection();
+//            PreparedStatement stmt = null;
+//            
+//            try{
+//                stmt = con.prepareStatement("DELETE FROM usuario WHERE cpf = ?");
+//                stmt.setString(1, cpf);
+//            }
+//            
+//        }
 }

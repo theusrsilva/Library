@@ -10,8 +10,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.bean.Usuario;
 import model.dao.EstoqueDAO;
 import model.dao.LivroDAO;
+import model.dao.UsuarioDAO;
 
 /**
  *
@@ -321,7 +323,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
         else{
-                JOptionPane.showMessageDialog(null,"nenhum usuário selecionado!");
+                JOptionPane.showMessageDialog(null,"nenhum livro selecionado!");
 }
     }
     private void txtAutorLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAutorLivroActionPerformed
@@ -380,6 +382,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+      
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

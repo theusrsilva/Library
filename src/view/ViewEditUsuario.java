@@ -134,8 +134,18 @@ public class ViewEditUsuario extends javax.swing.JFrame {
         });
 
         jButtonAdmin.setText("Tornar Admin");
+        jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdminActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Gerenciar Usuários");
@@ -264,6 +274,17 @@ public class ViewEditUsuario extends javax.swing.JFrame {
     private void jTableUsuariosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableUsuariosKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableUsuariosKeyReleased
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        String cpf =  txtCpf.getText();
+        
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
+        String cpf =  txtCpf.getText();
+        UsuarioDAO dao = new UsuarioDAO();
+        dao.addAdmin(cpf);
+    }//GEN-LAST:event_jButtonAdminActionPerformed
 
     /**
      * @param args the command line arguments
