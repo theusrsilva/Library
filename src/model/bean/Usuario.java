@@ -26,7 +26,7 @@ public class Usuario {
             }
             return nome;
             
-        }
+    }
 
     public Usuario(String cpf, String nome, String telefone, String email, String senha_hash) {
         this.cpf = cpf;
