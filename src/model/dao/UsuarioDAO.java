@@ -208,21 +208,24 @@ public class UsuarioDAO {
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            boolean admin;
+            boolean admin = false;
             try{
-                stmt = con.prepareStatement("SELECT count(*) FROM usuario u INNER JOIN usuario_admin ua ON (u.id_usuario = ua.id_usuario) INNER JOIN admin a ON (ua.id_admin = a.id_admin)  WHERE u.cpf = ?");
+                stmt = con.prepareStatement("SELECT count(*) FROM usuario u INNER JOIN usuario_admin ua ON (u.id_usuario = ua.id_usuario) INNER JOIN admin a ON (ua.id_admin = a.id_admin)  WHERE cpf = ?");
                 stmt.setString(1, cpf);
                 rs = stmt.executeQuery();
-                if (rs.getInt(1) == 1){
-                    admin = true;
-                }
+                while (rs.next()){
+                    if (rs.getInt(1) == 1){
+                        admin = true;
+                    }
+                } 
+               
                
             }catch (SQLException ex){
                         Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,ex);
             }finally{
                            ConnectionFactory.closeConnection(con, stmt,rs);
             }
-            return false;
+            return admin;
         }
        
         public void delete(String cpf){
