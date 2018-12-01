@@ -55,7 +55,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Cpf");
 
-        jLabel3.setText("Telefone");
+        jLabel3.setText("Telefone (Sem o 9º dígito)");
 
         jLabel4.setText("E-mail");
 
@@ -78,7 +78,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         }
 
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

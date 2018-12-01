@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package model.dao;
-
+ 
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,27 +17,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.bean.Usuario;
-
+ 
 /**
  *
  * @author Rocha
  */
 public class UsuarioDAO {
-
-
+ 
+ 
         public boolean checkLogin(String cpf, String senha_hash){
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs=null;
             boolean check = false;
-            
-            
+           
+           
             try{
                 stmt = con.prepareStatement("SELECT * FROM usuario WHERE cpf = ? and senha_hash = md5(?) ");
                 stmt.setString(1, cpf);
                 stmt.setString(2, senha_hash);
                 rs = stmt.executeQuery();
-                
+               
                 if(rs.next()){
                     check=true;
                 }
@@ -45,9 +45,9 @@ public class UsuarioDAO {
                         Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,ex);
                         } finally{
                            ConnectionFactory.closeConnection(con, stmt, rs);
-                    
-                    
-                    
+                   
+                   
+                   
                 }
             return check;
             }
@@ -56,7 +56,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = null;
             ResultSet rs=null;
             Usuario usuario = new Usuario();
-            
+           
             try{
                 stmt = con.prepareStatement("SELECT * FROM usuario WHERE cpf = ?");
                 stmt.setString(1, cpf);
@@ -67,20 +67,20 @@ public class UsuarioDAO {
                 usuario.setEmail(rs.getString("email"));
                 usuario.setId_usuario(rs.getInt("id_usuario"));
                 usuario.setTelefone(rs.getString("telefone"));
-                
-                
-                
-                
+               
+               
+               
+               
             }
-                
-                
+               
+               
                 }catch (SQLException ex){
                         Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,ex);
                 } finally{
                            ConnectionFactory.closeConnection(con, stmt, rs);
-                    
-                    
-                
+                   
+                   
+               
                 }
             if (usuario.getCpf() == null){
                     return null;
@@ -92,27 +92,27 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Usuario> usuarios= new ArrayList<>();
-        
-        
+       
+       
         try {
             stmt=con.prepareStatement("SELECT * FROM usuario");
             rs = stmt.executeQuery();
-            
+           
             while(rs.next()){
                 Usuario usuario = new Usuario();
-                
+               
                 usuario.setId_usuario(rs.getInt("id_usuario"));
                 usuario.setCpf(rs.getString("cpf"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setTelefone(rs.getString("telefone"));
-                
+               
                 usuarios.add(usuario);
-                
+               
             }
-            
-            
-            
+           
+           
+           
             } catch (SQLException ex) {
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -130,7 +130,7 @@ public class UsuarioDAO {
             stmt.setString(2,usuario.getEmail());
             stmt.setString(3,usuario.getTelefone());
             stmt.setString(4,usuario.getCpf());
-            
+           
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
@@ -139,12 +139,12 @@ public class UsuarioDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-            
+           
         public void create(Usuario u){
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
-            
-            
+           
+           
             try {
             stmt = con.prepareStatement("INSERT INTO usuario (cpf,nome,telefone,email,senha_hash) VALUES (?,?,?,?,md5(?))");
             stmt.setString(1,u.getCpf());
@@ -154,19 +154,19 @@ public class UsuarioDAO {
             stmt.setString(5,u.getSenha_hash());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Cadastro realizado com sucesso!");
-            
-        
-        
-        
+           
+       
+       
+       
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Erro ao cadastrar!"+ex);
-            
+           
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
-            
+           
         }
-        
+       
         public void addAdmin(String cpf){
             Usuario usuario = findByCpf(cpf);
             if (usuario != null){
@@ -175,7 +175,7 @@ public class UsuarioDAO {
                 Connection con2 = ConnectionFactory.getConnection();
                 PreparedStatement stmt2 = null;
                 ResultSet ultimoId = null;
-
+ 
                 try {
                 stmt = con.prepareStatement("INSERT INTO admin (id_usuario) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
                 stmt.setInt(1,usuario.getId_usuario());
@@ -190,31 +190,53 @@ public class UsuarioDAO {
                 stmt2.setInt(2, idAdmin);
                 stmt2.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Admin adicionado com sucesso!");
-
-
+ 
+ 
                }catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,"Erro ao adicionar admin!"+ex);
-
+ 
                }finally{
                 ConnectionFactory.closeConnection(con, stmt,ultimoId);
                 ConnectionFactory.closeConnection(con2, stmt2);
                }
             }
         }
-        
-        
-//        public void isAdmin(String cpf){
-//            
-//        }
-//        
-//        public void delete(String cpf){
-//            Connection con = ConnectionFactory.getConnection();
-//            PreparedStatement stmt = null;
-//            
-//            try{
-//                stmt = con.prepareStatement("DELETE FROM usuario WHERE cpf = ?");
-//                stmt.setString(1, cpf);
-//            }
-//            
-//        }
+       
+       
+       public boolean isAdmin(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            boolean admin;
+            try{
+                stmt = con.prepareStatement("SELECT count(*) FROM usuario u INNER JOIN usuario_admin ua ON (u.id_usuario = ua.id_usuario) INNER JOIN admin a ON (ua.id_admin = a.id_admin)  WHERE u.cpf = ?");
+                stmt.setString(1, cpf);
+                rs = stmt.executeQuery();
+                if (rs.getInt(1) == 1){
+                    admin = true;
+                }
+               
+            }catch (SQLException ex){
+                        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,ex);
+            }finally{
+                           ConnectionFactory.closeConnection(con, stmt,rs);
+            }
+            return false;
+        }
+       
+        public void delete(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+           
+            try{
+                stmt = con.prepareStatement("DELETE u, ua, a FROM usuario u INNER JOIN usuario_admin ua ON (u.id_usuario = ua.id_usuario) INNER JOIN admin a ON (ua.id_admin = a.id_admin)  WHERE cpf = ?");
+                stmt.setString(1, cpf);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Usuario removido com sucesso!");
+            }catch (SQLException ex){
+                        JOptionPane.showMessageDialog(null,"Erro ao remover usuario!"+ex);
+            }finally{
+                           ConnectionFactory.closeConnection(con, stmt);
+            }
+        }
 }

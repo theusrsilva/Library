@@ -16,7 +16,8 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewEditUsuario extends javax.swing.JFrame {
-
+    private Usuario usuario = new Usuario();
+    private UsuarioDAO dao = new UsuarioDAO();
     /**
      * Creates new form ViewEditUsuario
      */
@@ -30,7 +31,6 @@ public class ViewEditUsuario extends javax.swing.JFrame {
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
         modelo.setNumRows(0);
-        UsuarioDAO dao = new UsuarioDAO();
 
         for (Usuario usuario : dao.findAll()) {
             modelo.addRow(new Object[]{
@@ -38,6 +38,7 @@ public class ViewEditUsuario extends javax.swing.JFrame {
                 usuario.getCpf(),
                 usuario.getEmail(),
                 usuario.getTelefone()
+
             });
         }
     }
@@ -243,22 +244,19 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        Usuario usuario = new Usuario();
-        UsuarioDAO daoUsuario = new UsuarioDAO();
 
         usuario.setNome(txtNome.getText());
         usuario.setEmail(txtEmail.getText());
         usuario.setTelefone(txtTelefone.getText());
         usuario.setCpf(txtCpf.getText());
-        daoUsuario.updateUsuario(usuario);
+        dao.updateUsuario(usuario);
 
         readJTable();
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
         // TODO add your handling code here:
-        Usuario usuario = new Usuario();
-        UsuarioDAO daoUsuario = new UsuarioDAO();
+        
 
         usuario.setNome((String) jTableUsuarios.getValueAt(jTableUsuarios.getSelectedRow(), 0));
         usuario.setCpf((String) jTableUsuarios.getValueAt(jTableUsuarios.getSelectedRow(), 1));
@@ -277,14 +275,15 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        String cpf =  txtCpf.getText();
-        
+        String cpf = txtCpf.getText();
+        dao.delete(cpf);
+        readJTable();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
-                                          
+
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
-      String cpf =  txtCpf.getText();
-        UsuarioDAO dao = new UsuarioDAO();
+        String cpf = txtCpf.getText();
         dao.addAdmin(cpf);
+        readJTable();
     }//GEN-LAST:event_jButtonAdminActionPerformed
 
     /**
