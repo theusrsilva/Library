@@ -207,14 +207,19 @@ public class UsuarioDAO {
 //            
 //        }
 //        
-//        public void delete(String cpf){
-//            Connection con = ConnectionFactory.getConnection();
-//            PreparedStatement stmt = null;
-//            
-//            try{
-//                stmt = con.prepareStatement("DELETE FROM usuario WHERE cpf = ?");
-//                stmt.setString(1, cpf);
-//            }
-//            
-//        }
+        public void delete(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            
+            try{
+                stmt = con.prepareStatement("DELETE u, ua, a FROM usuario u INNER JOIN usuario_admin ua ON (u.id_usuario = ua.id_usuario) INNER JOIN admin a ON (ua.id_admin = a.id_admin)  WHERE cpf = ?");
+                stmt.setString(1, cpf);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Usuario removido com sucesso!");
+            }catch (SQLException ex){
+                        JOptionPane.showMessageDialog(null,"Erro ao remover usuario!"+ex);
+            }finally{
+                           ConnectionFactory.closeConnection(con, stmt);
+            }
+        }
 }
