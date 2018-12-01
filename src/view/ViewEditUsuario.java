@@ -291,9 +291,12 @@ public class ViewEditUsuario extends javax.swing.JFrame {
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
 
         String cpf = txtCpf.getText();
-
+        if(!dao.isAdmin(cpf)){
         dao.addAdmin(cpf);
         readJTable();
+        }else{
+            JOptionPane.showMessageDialog(null, "Usu[ario já é admin!");
+        }
     }//GEN-LAST:event_jButtonAdminActionPerformed
 
     /**
