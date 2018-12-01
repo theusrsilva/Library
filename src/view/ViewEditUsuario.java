@@ -217,8 +217,8 @@ public class ViewEditUsuario extends javax.swing.JFrame {
                     .addComponent(jButtonAdd)
                     .addComponent(jButtonAdmin)
                     .addComponent(jButtonExcluir))
-                .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -275,13 +275,14 @@ public class ViewEditUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableUsuariosKeyReleased
 
+
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         String cpf =  txtCpf.getText();
         
     }//GEN-LAST:event_jButtonExcluirActionPerformed
-
+                                          
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
-        String cpf =  txtCpf.getText();
+      String cpf =  txtCpf.getText();
         UsuarioDAO dao = new UsuarioDAO();
         dao.addAdmin(cpf);
     }//GEN-LAST:event_jButtonAdminActionPerformed

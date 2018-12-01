@@ -38,6 +38,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         jButtonGLivros = new javax.swing.JButton();
         jButtonGUsuarios = new javax.swing.JButton();
         txtNome = new javax.swing.JLabel();
+        jButtonEmprestismo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(395, 303));
@@ -67,6 +68,13 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jButtonEmprestismo.setText("Gerenciar Emprestimos");
+        jButtonEmprestismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEmprestismoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,7 +89,8 @@ public class ViewHomeAdm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonGUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonGLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonGLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonEmprestismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(137, 137, 137))
         );
         layout.setVerticalGroup(
@@ -93,9 +102,11 @@ public class ViewHomeAdm extends javax.swing.JFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(jButtonGLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(45, 45, 45)
+                .addGap(27, 27, 27)
+                .addComponent(jButtonEmprestismo)
+                .addGap(26, 26, 26)
                 .addComponent(jButtonGUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(68, 68, 68))
+                .addGap(37, 37, 37))
         );
 
         pack();
@@ -118,6 +129,12 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButtonEmprestismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmprestismoActionPerformed
+        // TODO add your handling code here:
+        new ViewGEmprestimos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonEmprestismoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,6 +173,7 @@ public class ViewHomeAdm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEmprestismo;
     private javax.swing.JButton jButtonGLivros;
     private javax.swing.JButton jButtonGUsuarios;
     private javax.swing.JLabel txtNome;
