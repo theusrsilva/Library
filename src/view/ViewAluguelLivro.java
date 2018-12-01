@@ -142,6 +142,11 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         txtAno.setForeground(new java.awt.Color(51, 51, 51));
 
         jButtonAlugar.setText("Alugar");
+        jButtonAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlugarActionPerformed(evt);
+            }
+        });
 
         jButtonFiltrar.setText("Filtrar");
         jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -291,6 +296,10 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAlugarActionPerformed
 
     /**
      * @param args the command line arguments
