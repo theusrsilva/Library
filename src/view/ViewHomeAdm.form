@@ -42,6 +42,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButtonGUsuarios" max="32767" attributes="0"/>
                   <Component id="jButtonGLivros" max="32767" attributes="0"/>
+                  <Component id="jButtonEmprestismo" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
           </Group>
@@ -57,9 +58,11 @@
               </Group>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Component id="jButtonGLivros" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Component id="jButtonEmprestismo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="jButtonGUsuarios" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,6 +98,14 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEmprestismo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gerenciar Emprestimos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEmprestismoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

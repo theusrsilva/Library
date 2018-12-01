@@ -134,6 +134,11 @@ public class ViewEditUsuario extends javax.swing.JFrame {
         });
 
         jButtonAdmin.setText("Tornar Admin");
+        jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdminActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setText("Excluir");
 
@@ -207,8 +212,8 @@ public class ViewEditUsuario extends javax.swing.JFrame {
                     .addComponent(jButtonAdd)
                     .addComponent(jButtonAdmin)
                     .addComponent(jButtonExcluir))
-                .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -264,6 +269,10 @@ public class ViewEditUsuario extends javax.swing.JFrame {
     private void jTableUsuariosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableUsuariosKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableUsuariosKeyReleased
+
+    private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAdminActionPerformed
 
     /**
      * @param args the command line arguments
