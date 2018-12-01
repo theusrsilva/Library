@@ -120,6 +120,9 @@ public class LivroDAO {
         }finally{
             ConnectionFactory.closeConnection(con, stmt,rs);
         }
+        if (livro.getTitulo() == null){
+            return null;
+        }
         return livro;
     }
     

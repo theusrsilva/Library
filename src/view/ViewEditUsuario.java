@@ -295,7 +295,7 @@ public class ViewEditUsuario extends javax.swing.JFrame {
         dao.addAdmin(cpf);
         readJTable();
         }else{
-            JOptionPane.showMessageDialog(null, "Usu[ario já é admin!");
+            JOptionPane.showMessageDialog(null, "Usuario já é admin!");
         }
     }//GEN-LAST:event_jButtonAdminActionPerformed
 

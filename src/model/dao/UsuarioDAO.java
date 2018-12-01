@@ -51,6 +51,7 @@ public class UsuarioDAO {
                 }
             return check;
             }
+        
         public Usuario findByCpf(String cpf){
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;

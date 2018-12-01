@@ -14,7 +14,7 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewLogin extends javax.swing.JFrame {
-    ViewHomeAdm enviaNome;
+    
     /**
      * Creates new form ViewLogin
      */
@@ -120,16 +120,26 @@ public class ViewLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        // TODO add your handling code here:
+
         UsuarioDAO dao = new UsuarioDAO();
         Usuario usuario = new Usuario();
+        ViewHomeAdm enviaNomeAdm;
+        //ViewHomeUsuario enviaNomeUsuario;
         
         if(dao.checkLogin(txtCpf.getText(), txtsenha.getText())){
-            enviaNome = new ViewHomeAdm();
-            enviaNome.setVisible(true);
             usuario = dao.findByCpf(txtCpf.getText());
+            if(dao.isAdmin(usuario.getCpf())){
+                enviaNomeAdm = new ViewHomeAdm();
+                enviaNomeAdm.setVisible(true);
+            }
+            else{
+//                enviaNomeUsuario = new ViewHomeUsuario;
+//                enviaNomeUsuario.setVisible(true);
+            }
             
-            enviaNome.recebeNome(usuario.getPrimeiroNome(usuario));
+            
+            
+            //enviaNomeAdm.recebeNome(usuario.getPrimeiroNome(usuario));
             this.dispose();
             
         }else{
