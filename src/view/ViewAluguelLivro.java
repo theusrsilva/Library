@@ -354,8 +354,13 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
                 if(n.getIsbn().equals(livro.getIsbn())){
                     JOptionPane.showMessageDialog(null,"Livro já selecionado!");
                     i =1;
+                    break;
                 }
                 
+            }
+            if(((int)jTableLivrosAluguel.getValueAt(jTableLivrosAluguel.getSelectedRow(), 4))<=0){
+                i=1;
+                JOptionPane.showMessageDialog(null,"Livro esgotado!");
             }
             if(i==0){
                 livros.add(livro);
