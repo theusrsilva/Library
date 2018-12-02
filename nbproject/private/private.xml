@@ -5,9 +5,10 @@
         <group>
             <file>file:/C:/Users/Lohan/Desktop/Library/src/view/ViewGEmprestimos.java</file>
             <file>file:/C:/Users/Lohan/Desktop/Library/src/model/dao/EmprestimoDAO.java</file>
-            <file>file:/C:/Users/Lohan/Desktop/Library/src/view/ViewLogin.java</file>
+            <file>file:/C:/Users/Lohan/Desktop/Library/src/model/bean/Emprestimo.java</file>
+            <file>file:/C:/Users/Lohan/Desktop/Library/src/model/dao/LivroDAO.java</file>
+            <file>file:/C:/Users/Lohan/Desktop/Library/src/model/dao/UsuarioDAO.java</file>
             <file>file:/C:/Users/Lohan/Desktop/Library/src/view/ViewConfirmEmprestimo.java</file>
-            <file>file:/C:/Users/Lohan/Desktop/Library/src/view/ViewCadastroLivro.java</file>
         </group>
     </open-files>
 </project-private>

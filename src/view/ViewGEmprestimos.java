@@ -18,9 +18,8 @@ import model.dao.LivroDAO;
  * @author Rocha
  */
 public class ViewGEmprestimos extends javax.swing.JFrame {
-    private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
-    private List<List<Livro>> pedidosEmprestimo = new ArrayList<>();
-    private List<Date> dataEmprestimo = new ArrayList<Date>();
+
+
     
     
     /**
@@ -28,8 +27,8 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
      */
     public ViewGEmprestimos() {
         initComponents();
-        setPedidosEmprestimo(emprestimoDAO.getPedidosEmprestimo());
-        setDataEmprestimo(emprestimoDAO.getDataEmprestimo());
+
+        readJTable();
     }
 
     /**
@@ -164,23 +163,11 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel)jTableEmprestimos.getModel();
         modelo.setNumRows(0);
         
-        for( List<Livro> livros: pedidosEmprestimo){
-            modelo.addRow(new Object[]{
-               11,
-               pedidosEmprestimo.size(),
-               dataEmprestimo.toString()
-               
-            });
-        }    
+      
+         
     }
     
-    public void setPedidosEmprestimo(List<List<Livro>> pedidos){
-        this.pedidosEmprestimo = pedidos;
-    }
     
-    public void setDataEmprestimo(List<Date> datas){
-        this.dataEmprestimo = datas;
-    }
     
     
     

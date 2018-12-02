@@ -5,7 +5,11 @@
  */
 package view;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -169,7 +173,8 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableLivrosSelecionadosMouseClicked
 
     private void jButtonConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmaActionPerformed
-        emprestimoDAO.addPedidoEmprestimo(livrosSelecionadosc);
+        //emprestimoDAO.criaPedidoEmprestimo(cpf, livrosSelecionadosc);
+        
         
         JOptionPane.showMessageDialog(null, "Pedido de Emprestimo enviado!");
       
@@ -180,6 +185,13 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+      
+        
+        
+       
+        
+        //System.out.println( java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -214,6 +226,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     public void setLista(List<Livro> livros) {
         this.livrosSelecionadosc = livros;
     }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirma;
