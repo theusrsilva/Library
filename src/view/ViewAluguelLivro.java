@@ -22,7 +22,7 @@ import model.dao.UsuarioDAO;
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
     private List<Livro> livrosSelecionados= new ArrayList<>();
-  
+    
     
     /**
      * Creates new form ViewAluguelLivro
@@ -101,6 +101,13 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -389,6 +396,11 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_jButtonPlusActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        txtQuantidade.setText(String.valueOf(livrosSelecionados.size()));
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

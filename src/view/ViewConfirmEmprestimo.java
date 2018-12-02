@@ -7,10 +7,12 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.dao.EstoqueDAO;
 import model.dao.LivroDAO;
 
 /**
@@ -18,7 +20,13 @@ import model.dao.LivroDAO;
  * @author Rocha
  */
 public class ViewConfirmEmprestimo extends javax.swing.JFrame {
-    private List<Livro> livrosSelecionadosc= new ArrayList<>();
+    
+    private List<Livro> livrosSelecionadosc = new ArrayList<>();
+    private Livro livro = new Livro();
+    private LivroDAO daoLivro = new LivroDAO();
+    private Estoque estoque = new Estoque();
+    private EstoqueDAO daoEstoque = new EstoqueDAO();
+
     /**
      * Creates new form ViewConfirmEmprestimo
      */
@@ -28,7 +36,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
         readJTable();
     }
-    
+
     public ViewConfirmEmprestimo(List<Livro> livros) {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
@@ -36,7 +44,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         this.setLista(livros);
         readJTable();
     }
-    
+
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
         modelo.setNumRows(0);
@@ -50,6 +58,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             });
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,8 +70,8 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLivrosSelecionados = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonConfirma = new javax.swing.JButton();
+        jButtonRemove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,11 +91,21 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableLivrosSelecionados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLivrosSelecionadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableLivrosSelecionados);
 
-        jButton1.setText("Confirmar Empréstimo");
+        jButtonConfirma.setText("Confirmar Empréstimo");
 
-        jButton2.setText("Remover livro da lista");
+        jButtonRemove.setText("Remover livro da lista");
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,9 +117,9 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(jButton2)
+                .addComponent(jButtonRemove)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonConfirma)
                 .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
@@ -108,8 +127,8 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonRemove)
+                    .addComponent(jButtonConfirma))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -118,6 +137,31 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
+        // TODO add your handling code here:
+        livro.setIsbn((String) jTableLivrosSelecionados.getValueAt(jTableLivrosSelecionados.getSelectedRow(), 0));
+        if (jTableLivrosSelecionados.getSelectedRow() != -1) {
+            for (Livro n : livrosSelecionadosc) {
+                if (n.getIsbn().equals(livro.getIsbn())) {
+                    livrosSelecionadosc.remove(n);
+                    readJTable();
+                    JOptionPane.showMessageDialog(null, "Livro retirado com sucesso!");
+                    
+                    
+                    break;
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum livro selecionado!");
+        }
+    }//GEN-LAST:event_jButtonRemoveActionPerformed
+
+    private void jTableLivrosSelecionadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivrosSelecionadosMouseClicked
+        // TODO add your handling code here:
+
+        
+    }//GEN-LAST:event_jTableLivrosSelecionadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -153,13 +197,14 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
             }
         });
     }
-    public void setLista(List<Livro> livros){
-        this.livrosSelecionadosc=livros;
+
+    public void setLista(List<Livro> livros) {
+        this.livrosSelecionadosc = livros;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonConfirma;
+    private javax.swing.JButton jButtonRemove;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLivrosSelecionados;
     // End of variables declaration//GEN-END:variables

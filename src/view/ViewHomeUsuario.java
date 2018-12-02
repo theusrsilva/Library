@@ -5,11 +5,16 @@
  */
 package view;
 
+import model.bean.Usuario;
+import model.dao.UsuarioDAO;
+
 /**
  *
  * @author Rocha
  */
 public class ViewHomeUsuario extends javax.swing.JFrame {
+    private Usuario usuario = new Usuario();
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
     /**
      * Creates new form ViewHomeAdm
      */
@@ -17,9 +22,9 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
         initComponents();
         
     }
-    public void recebeNome(String nome){
-        
-        txtOq.setText("O que deseja Fazer "+nome);
+    public void recebeNome(Usuario usuario){
+        usuario=usuario;
+        txtOq.setText("O que deseja Fazer "+usuario.getPrimeiroNome(usuario));
         
         
         
@@ -37,6 +42,7 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
         txtOq = new javax.swing.JLabel();
         jButtonALivros = new javax.swing.JButton();
         txtNome = new javax.swing.JLabel();
+        jButtonDevolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -58,6 +64,13 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jButtonDevolver.setText("Devolver Livro");
+        jButtonDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDevolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,8 +82,10 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
                 .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addGap(70, 70, 70))
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jButtonALivros, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(126, 126, 126)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonALivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -80,9 +95,11 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtOq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                .addGap(35, 35, 35)
                 .addComponent(jButtonALivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(111, 111, 111))
+                .addGap(47, 47, 47)
+                .addComponent(jButtonDevolver)
+                .addGap(81, 81, 81))
         );
 
         pack();
@@ -99,6 +116,12 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
+        // TODO add your handling code here:
+        new ViewDevolverLivros().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonDevolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,6 +162,7 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonALivros;
+    private javax.swing.JButton jButtonDevolver;
     private javax.swing.JLabel txtNome;
     private javax.swing.JLabel txtOq;
     // End of variables declaration//GEN-END:variables

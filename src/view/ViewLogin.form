@@ -34,13 +34,16 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtsenha" max="32767" attributes="0"/>
+                          <Component id="txtCpf" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButtonLogin" min="-2" pref="86" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="txtTrocaSenha" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButtonLogin" alignment="0" pref="86" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace pref="61" max="32767" attributes="0"/>
                               <Component id="jButtonCadastro" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtsenha" max="32767" attributes="0"/>
-                          <Component id="txtCpf" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -61,7 +64,9 @@
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="txtsenha" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="txtTrocaSenha" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -116,6 +121,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCpfActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtTrocaSenha">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Esqueci a senha"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtTrocaSenhaMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

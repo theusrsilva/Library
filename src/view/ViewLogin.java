@@ -38,6 +38,7 @@ public class ViewLogin extends javax.swing.JFrame {
         jButtonCadastro = new javax.swing.JButton();
         txtsenha = new javax.swing.JTextField();
         txtCpf = new javax.swing.JFormattedTextField();
+        txtTrocaSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +74,13 @@ public class ViewLogin extends javax.swing.JFrame {
             }
         });
 
+        txtTrocaSenha.setText("Esqueci a senha");
+        txtTrocaSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTrocaSenhaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,12 +95,14 @@ public class ViewLogin extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                                .addComponent(jButtonCadastro))
                             .addComponent(txtsenha)
-                            .addComponent(txtCpf))))
+                            .addComponent(txtCpf)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtTrocaSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addComponent(jButtonCadastro)))))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,7 +118,9 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTrocaSenha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLogin)
                     .addComponent(jButtonCadastro))
@@ -132,12 +144,12 @@ public class ViewLogin extends javax.swing.JFrame {
             if(dao.isAdmin(usuario.getCpf())){
                 enviaNomeAdm = new ViewHomeAdm();
                 enviaNomeAdm.setVisible(true);
-                enviaNomeAdm.recebeNome(usuario.getPrimeiroNome(usuario));
+                enviaNomeAdm.recebeNome(usuario);
             }
             else{
                 enviaNomeUsuario = new ViewHomeUsuario();
                 enviaNomeUsuario.setVisible(true);
-                enviaNomeUsuario.recebeNome(usuario.getPrimeiroNome(usuario));
+                enviaNomeUsuario.recebeNome(usuario);
             }
             
             
@@ -161,6 +173,12 @@ public class ViewLogin extends javax.swing.JFrame {
     private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void txtTrocaSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTrocaSenhaMouseClicked
+        // TODO add your handling code here:
+        new ViewTrocaSenha().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_txtTrocaSenhaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -204,6 +222,7 @@ public class ViewLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JLabel txtTrocaSenha;
     private javax.swing.JTextField txtsenha;
     // End of variables declaration//GEN-END:variables
 }

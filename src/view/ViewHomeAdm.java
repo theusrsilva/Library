@@ -5,11 +5,16 @@
  */
 package view;
 
+import model.bean.Usuario;
+import model.dao.UsuarioDAO;
+
 /**
  *
  * @author Rocha
  */
 public class ViewHomeAdm extends javax.swing.JFrame {
+    private Usuario usuario = new Usuario();
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
     /**
      * Creates new form ViewHomeAdm
      */
@@ -17,9 +22,9 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         initComponents();
         
     }
-    public void recebeNome(String nome){
-        
-        txtOq.setText("O que deseja Fazer "+nome);
+    public void recebeNome(Usuario usuario){
+        usuario=usuario;
+        txtOq.setText("O que deseja Fazer "+usuario.getPrimeiroNome(usuario));
         
         
         
