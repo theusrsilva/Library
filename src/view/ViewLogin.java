@@ -43,6 +43,7 @@ public class ViewLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonLogin.setText("Logar");
+        jButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
@@ -57,6 +58,7 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel3.setText("Senha");
 
         jButtonCadastro.setText("Cadastre-se");
+        jButtonCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastroActionPerformed(evt);
@@ -75,9 +77,16 @@ public class ViewLogin extends javax.swing.JFrame {
         });
 
         txtTrocaSenha.setText("Esqueci a senha");
+        txtTrocaSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtTrocaSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtTrocaSenhaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtTrocaSenhaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtTrocaSenhaMouseExited(evt);
             }
         });
 
@@ -179,6 +188,16 @@ public class ViewLogin extends javax.swing.JFrame {
         new ViewTrocaSenha().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_txtTrocaSenhaMouseClicked
+
+    private void txtTrocaSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTrocaSenhaMouseEntered
+        // TODO add your handling code here:
+        txtTrocaSenha.setText("<html><u>Esqueci a senha</u></html>");
+    }//GEN-LAST:event_txtTrocaSenhaMouseEntered
+
+    private void txtTrocaSenhaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTrocaSenhaMouseExited
+        // TODO add your handling code here:
+        txtTrocaSenha.setText("Esqueci a senha");
+    }//GEN-LAST:event_txtTrocaSenhaMouseExited
 
     /**
      * @param args the command line arguments
