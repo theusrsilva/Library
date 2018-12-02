@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.dao.EmprestimoDAO;
 import model.dao.EstoqueDAO;
 import model.dao.LivroDAO;
 
@@ -24,8 +25,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     private List<Livro> livrosSelecionadosc = new ArrayList<>();
     private Livro livro = new Livro();
     private LivroDAO daoLivro = new LivroDAO();
-    private Estoque estoque = new Estoque();
-    private EstoqueDAO daoEstoque = new EstoqueDAO();
+    private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
 
     /**
      * Creates new form ViewConfirmEmprestimo
@@ -99,6 +99,11 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableLivrosSelecionados);
 
         jButtonConfirma.setText("Confirmar Empréstimo");
+        jButtonConfirma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmaActionPerformed(evt);
+            }
+        });
 
         jButtonRemove.setText("Remover livro da lista");
         jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +167,14 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_jTableLivrosSelecionadosMouseClicked
+
+    private void jButtonConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmaActionPerformed
+        emprestimoDAO.addPedidoEmprestimo(livrosSelecionadosc);
+        
+        JOptionPane.showMessageDialog(null, "Pedido de Emprestimo enviado!");
+      
+        
+    }//GEN-LAST:event_jButtonConfirmaActionPerformed
 
     /**
      * @param args the command line arguments

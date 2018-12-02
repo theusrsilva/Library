@@ -5,17 +5,31 @@
  */
 package view;
 
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Livro;
+import model.dao.EmprestimoDAO;
+import model.dao.LivroDAO;
+
 /**
  *
  * @author Rocha
  */
 public class ViewGEmprestimos extends javax.swing.JFrame {
-
+    private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+    private List<List<Livro>> pedidosEmprestimo = new ArrayList<>();
+    private List<Date> dataEmprestimo = new ArrayList<Date>();
+    
+    
     /**
      * Creates new form ViewGEmprestimos
      */
     public ViewGEmprestimos() {
         initComponents();
+        setPedidosEmprestimo(emprestimoDAO.getPedidosEmprestimo());
+        setDataEmprestimo(emprestimoDAO.getDataEmprestimo());
     }
 
     /**
@@ -146,6 +160,32 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void readJTable(){
+        DefaultTableModel modelo = (DefaultTableModel)jTableEmprestimos.getModel();
+        modelo.setNumRows(0);
+        
+        for( List<Livro> livros: pedidosEmprestimo){
+            modelo.addRow(new Object[]{
+               11,
+               pedidosEmprestimo.size(),
+               dataEmprestimo.toString()
+               
+            });
+        }    
+    }
+    
+    public void setPedidosEmprestimo(List<List<Livro>> pedidos){
+        this.pedidosEmprestimo = pedidos;
+    }
+    
+    public void setDataEmprestimo(List<Date> datas){
+        this.dataEmprestimo = datas;
+    }
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -180,7 +220,9 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAceitar;

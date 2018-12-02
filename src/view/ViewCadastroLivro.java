@@ -32,7 +32,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         readJTable();
     }
     
-     public void readJTable(){
+    public void readJTable(){
         DefaultTableModel modelo = (DefaultTableModel)jTableLivros.getModel();
         modelo.setNumRows(0);
         LivroDAO dao = new LivroDAO();
