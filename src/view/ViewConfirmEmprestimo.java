@@ -30,6 +30,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     private Livro livro = new Livro();
     private LivroDAO daoLivro = new LivroDAO();
     private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+    private String cpfUsuario;
 
     /**
      * Creates new form ViewConfirmEmprestimo
@@ -41,11 +42,12 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         readJTable();
     }
 
-    public ViewConfirmEmprestimo(List<Livro> livros) {
+    public ViewConfirmEmprestimo(List<Livro> livros,String cpf) {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
         jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
         this.setLista(livros);
+        this.cpfUsuario=cpf;
         readJTable();
     }
 

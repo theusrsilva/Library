@@ -22,6 +22,15 @@ import model.dao.UsuarioDAO;
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
     private List<Livro> livrosSelecionados= new ArrayList<>();
+    String cpfUsuario;
+    UsuarioDAO daousuario = new UsuarioDAO();
+    ViewHomeUsuario enviaUsuario;
+    ViewConfirmEmprestimo enviaCpfConfirma;
+    
+    
+    public void recebeCpf(String cpf){
+        cpfUsuario=cpf;
+    }
     
     
     /**
@@ -333,7 +342,9 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
-        new ViewHomeUsuario().setVisible(true);
+        enviaUsuario = new ViewHomeUsuario();
+        enviaUsuario.setVisible(true);
+        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuario));
         this.dispose();
         
     }//GEN-LAST:event_jButtonVoltarActionPerformed
@@ -349,7 +360,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
        if(Integer.parseInt(txtQuantidade.getText())>0){
            ViewConfirmEmprestimo enviaLista;
-           enviaLista =new ViewConfirmEmprestimo(livrosSelecionados);
+           enviaLista =new ViewConfirmEmprestimo(livrosSelecionados,cpfUsuario);
            enviaLista.setVisible(true);
            
        }

@@ -27,6 +27,7 @@ public class Emprestimo {
         this.dataPrevista = dataPrevista;
         this.status_devolucao = status_devolucao;
         this.status_emprestimo = status_emprestimo;
+
     }
     
     public Emprestimo(){
@@ -78,6 +79,7 @@ public class Emprestimo {
 
     public void setStatus(boolean status) {
         this.status_devolucao = status;
+<<<<<<< HEAD
     }
     
     public String getStatus_emprestimo() {
@@ -87,6 +89,8 @@ public class Emprestimo {
  
     public void setStatus_emprestimo(String status_emprestimo) {
         this.status_emprestimo = status_emprestimo;
+=======
+>>>>>>> 213b2f3b4ed648f0c3ff8e3ee5cfbb67c502ac15
     }
     
     

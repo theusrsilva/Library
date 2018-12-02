@@ -66,11 +66,11 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Solicitador", "Quantidade de livros", "Data"
+                "Solicitador", "Quantidade de livros", "Data do Empréstimo", "Data da devolução"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
