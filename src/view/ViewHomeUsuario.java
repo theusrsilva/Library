@@ -124,7 +124,8 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     private void jButtonALivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonALivrosActionPerformed
         // TODO add your handling code here:
-        new ViewAluguelLivro().setVisible(true);
+        enviaCpfAluguel = new ViewAluguelLivro();
+        enviaCpfAluguel.setVisible(true);
         enviaCpfAluguel.recebeCpf(usuarioc.getCpf());
         this.dispose();
     }//GEN-LAST:event_jButtonALivrosActionPerformed
@@ -136,7 +137,8 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
         // TODO add your handling code here:
-        new ViewDevolverLivros().setVisible(true);
+        enviaCpfDevolve = new ViewDevolverLivros();
+        enviaCpfDevolve.setVisible(true);
         enviaCpfDevolve.recebeCpf(usuarioc.getCpf());
         this.dispose();
     }//GEN-LAST:event_jButtonDevolverActionPerformed

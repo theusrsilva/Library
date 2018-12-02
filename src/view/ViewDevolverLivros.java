@@ -15,6 +15,7 @@ import model.dao.UsuarioDAO;
 public class ViewDevolverLivros extends javax.swing.JFrame {
     String cpfUsuario;
     UsuarioDAO daousuario = new UsuarioDAO();
+    Usuario usuario = new Usuario();
     ViewHomeUsuario enviaUsuario;
     
     
