@@ -13,8 +13,11 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewHomeUsuario extends javax.swing.JFrame {
-    private Usuario usuario = new Usuario();
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    Usuario usuarioc = new Usuario();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    ViewDevolverLivros enviaCpfDevolve;
+    ViewAluguelLivro enviaCpfAluguel;
+    
     /**
      * Creates new form ViewHomeAdm
      */
@@ -22,12 +25,10 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
         initComponents();
         
     }
+    
     public void recebeNome(Usuario usuario){
-        usuario=usuario;
-        txtOq.setText("O que deseja Fazer "+usuario.getPrimeiroNome(usuario));
-        
-        
-        
+        usuarioc=usuario;
+        txtOq.setText("O que deseja Fazer "+usuarioc.getPrimeiroNome(usuarioc));
     }
 
     /**
@@ -124,6 +125,7 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
     private void jButtonALivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonALivrosActionPerformed
         // TODO add your handling code here:
         new ViewAluguelLivro().setVisible(true);
+        enviaCpfAluguel.recebeCpf(usuarioc.getCpf());
         this.dispose();
     }//GEN-LAST:event_jButtonALivrosActionPerformed
     //Setta a data e hora sendo que tem a interface hora sobrescrita no fim
@@ -135,6 +137,7 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
     private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
         // TODO add your handling code here:
         new ViewDevolverLivros().setVisible(true);
+        enviaCpfDevolve.recebeCpf(usuarioc.getCpf());
         this.dispose();
     }//GEN-LAST:event_jButtonDevolverActionPerformed
 

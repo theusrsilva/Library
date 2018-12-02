@@ -22,6 +22,14 @@ import model.dao.UsuarioDAO;
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
     private List<Livro> livrosSelecionados= new ArrayList<>();
+    private String cpfUsuario;
+    private UsuarioDAO daousuario = new UsuarioDAO();
+    private ViewHomeUsuario enviaUsuario;
+    
+    
+    public void recebeCpf(String cpf){
+        cpfUsuario=cpf;
+    }
     
     
     /**
@@ -334,6 +342,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
         new ViewHomeUsuario().setVisible(true);
+        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuario));
         this.dispose();
         
     }//GEN-LAST:event_jButtonVoltarActionPerformed

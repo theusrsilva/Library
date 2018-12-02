@@ -5,12 +5,22 @@
  */
 package view;
 
+import model.bean.Usuario;
+import model.dao.UsuarioDAO;
+
 /**
  *
  * @author Rocha
  */
 public class ViewDevolverLivros extends javax.swing.JFrame {
-
+    String cpfUsuario;
+    UsuarioDAO daousuario = new UsuarioDAO();
+    ViewHomeUsuario enviaUsuario;
+    
+    
+    public void recebeCpf(String cpf){
+        cpfUsuario=cpf;
+    }
     /**
      * Creates new form ViewDevolverLivros
      */
@@ -191,7 +201,9 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
-        new ViewHomeUsuario().setVisible(true);
+        enviaUsuario = new ViewHomeUsuario();
+        enviaUsuario.setVisible(true);
+        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuario));
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
