@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.MaskFormatter;
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 
@@ -19,6 +23,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
      */
     public ViewCadastroUsuario() {
         initComponents();
+        
     }
 
     /**
@@ -78,10 +83,12 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         }
 
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.setText("");
+        txtTelefone.setToolTipText("");
         txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefoneActionPerformed(evt);
@@ -168,6 +175,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
     /**

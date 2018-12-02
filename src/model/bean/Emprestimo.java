@@ -16,14 +16,15 @@ public class Emprestimo {
     private Date dataEmpresimo;
     private Date dataDevolucao;
     private Date dataPrevista;
-    private boolean status;
+    private boolean status_devolucao;
+    private String status_emprestimo;
     
     
     public Emprestimo(Date dataEmpresimo, Date dataDevolucao, Date dataPrevista, boolean status) {
         this.dataEmpresimo = dataEmpresimo;
         this.dataDevolucao = dataDevolucao;
         this.dataPrevista = dataPrevista;
-        this.status = status;
+        this.status_devolucao = status;
     }
     
     public Emprestimo(){
@@ -70,11 +71,11 @@ public class Emprestimo {
     }
 
     public boolean isStatus() {
-        return status;
+        return status_devolucao;
     }
 
     public void setStatus(boolean status) {
-        this.status = status;
+        this.status_devolucao = status;
     }
     
     

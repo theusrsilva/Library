@@ -92,6 +92,12 @@ public class ViewLogin extends javax.swing.JFrame {
             }
         });
 
+        txtsenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,6 +206,11 @@ public class ViewLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtTrocaSenha.setText("Esqueci a senha");
     }//GEN-LAST:event_txtTrocaSenhaMouseExited
+
+    private void txtsenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsenhaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtsenhaActionPerformed
 
     /**
      * @param args the command line arguments
