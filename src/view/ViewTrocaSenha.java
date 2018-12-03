@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.MaskFormatter;
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 
@@ -15,11 +19,19 @@ import model.dao.UsuarioDAO;
 public class ViewTrocaSenha extends javax.swing.JFrame {
     private Usuario usuario = new Usuario();
     private UsuarioDAO dao = new UsuarioDAO();
+    MaskFormatter maskData = null;
     /**
      * Creates new form ViewTrocaSenha
      */
     public ViewTrocaSenha() {
         initComponents();
+        try {
+                
+                maskData = new MaskFormatter("(##)####-####");
+                maskData.install(txtTelefone);
+            } catch (ParseException ex) {
+                Logger.getLogger(ViewTrocaSenha.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**
@@ -34,11 +46,12 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         txtSenhaNova = new javax.swing.JTextField();
         jButtonAtualizar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
+        txtTelefone = new javax.swing.JFormattedTextField();
+        jToggleButton9 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,12 +64,6 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
         }
 
         jLabel2.setText("Telefone");
-
-        try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jLabel3.setText("Senha nova");
 
@@ -74,24 +81,41 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton9.setText("9 Dígito");
+        jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonVoltar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addComponent(txtTelefone)
-                        .addComponent(txtSenhaNova)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(jButtonAtualizar)
-                .addGap(96, 96, 96))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonVoltar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(txtSenhaNova)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addComponent(jButtonAtualizar)
+                        .addGap(96, 96, 96))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jToggleButton9)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,13 +126,15 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
                 .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(jLabel2)
-                .addGap(9, 9, 9)
-                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton9))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSenhaNova, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAtualizar)
                     .addComponent(jButtonVoltar))
@@ -132,6 +158,30 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
+        // TODO add your handling code here:
+        troca();
+    }//GEN-LAST:event_jToggleButton9ActionPerformed
+    public void troca(){
+        if(jToggleButton9.isSelected()){
+            try {
+                maskData.uninstall();
+                maskData = new MaskFormatter("(##)#####-####");
+                maskData.install(txtTelefone);
+            } catch (ParseException ex) {
+                Logger.getLogger(ViewTrocaSenha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }else{
+            try {
+                maskData.uninstall();
+                maskData = new MaskFormatter("(##)####-####");
+                maskData.install(txtTelefone);
+            } catch (ParseException ex) {
+                Logger.getLogger(ViewTrocaSenha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -173,6 +223,7 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JToggleButton jToggleButton9;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtSenhaNova;
     private javax.swing.JFormattedTextField txtTelefone;
