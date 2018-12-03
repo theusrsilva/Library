@@ -32,13 +32,10 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
     public ViewHomeUsuario(String cpf) {
         initComponents();
         this.cpfUsuarioLogado = cpf;
-        
-    }
-    
-    public void recebeNome(Usuario usuario){
-        usuarioc=usuario;
+        usuarioc = usuarioDAO.findByCpf(cpf);
         txtOq.setText("O que deseja Fazer "+usuarioc.getPrimeiroNome(usuarioc));
     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,15 +94,15 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
                 .addGap(93, 93, 93)
                 .addComponent(txtOq)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addGap(70, 70, 70))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonALivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
+                            .addComponent(jButtonDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                            .addComponent(jButtonALivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(169, 169, 169)
                         .addComponent(jButton1)))
@@ -119,10 +116,10 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
                     .addComponent(txtOq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jButtonALivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
+                .addComponent(jButtonALivros, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jButtonDevolver)
-                .addGap(34, 34, 34)
+                .addGap(44, 44, 44)
                 .addComponent(jButton1)
                 .addGap(42, 42, 42))
         );

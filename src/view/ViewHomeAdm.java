@@ -13,7 +13,7 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewHomeAdm extends javax.swing.JFrame {
-    private Usuario usuario = new Usuario();
+    private Usuario usuarioc = new Usuario();
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private ViewGEmprestimos sendUsuarioGEmprestimos;
     private ViewEditUsuario sendUsuarioEditUsuario;
@@ -26,12 +26,11 @@ public class ViewHomeAdm extends javax.swing.JFrame {
         initComponents();
         
     }
-    public void recebeNome(Usuario usuario){
-        usuario=usuario;
-        txtOq.setText("O que deseja Fazer "+usuario.getPrimeiroNome(usuario));
-        
-        
-        
+    
+    public ViewHomeAdm(String cpf) {
+        initComponents();
+        usuarioc = usuarioDAO.findByCpf(cpf);
+        txtOq.setText("O que deseja Fazer "+usuarioc.getPrimeiroNome(usuarioc));
     }
 
     /**
@@ -139,13 +138,13 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
     private void jButtonGLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGLivrosActionPerformed
         // TODO add your handling code here:
-        new ViewCadastroLivro().setVisible(true);
-        this.dispose();
+//        new ViewCadastroLivro(cpfUsuario).setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_jButtonGLivrosActionPerformed
 
     private void jButtonGUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGUsuariosActionPerformed
         // TODO add your handling code here:
-        new ViewEditUsuario().setVisible(true);
+        new ViewEditUsuario(usuarioc.getCpf()).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonGUsuariosActionPerformed
     //Setta a data e hora sendo que tem a interface hora sobrescrita no fim
@@ -156,8 +155,8 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
     private void jButtonEmprestismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmprestismoActionPerformed
         // TODO add your handling code here:
-        new ViewGEmprestimos().setVisible(true);
-        this.dispose();
+//        new ViewGEmprestimos(cpfUsuario).setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_jButtonEmprestismoActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
