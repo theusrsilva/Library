@@ -30,7 +30,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     private Livro livro = new Livro();
     private LivroDAO daoLivro = new LivroDAO();
     private EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
-    private String cpfUsuario;
+    private String cpfUsuarioLogado;
 
     /**
      * Creates new form ViewConfirmEmprestimo
@@ -47,7 +47,7 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosSelecionados.getModel();
         jTableLivrosSelecionados.setRowSorter(new TableRowSorter(modelo));
         this.setLista(livros);
-        this.cpfUsuario=cpf;
+        this.cpfUsuarioLogado=cpf;
         readJTable();
     }
 
@@ -175,7 +175,8 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableLivrosSelecionadosMouseClicked
 
     private void jButtonConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmaActionPerformed
-        //emprestimoDAO.criaPedidoEmprestimo(cpf, livrosSelecionadosc);
+        emprestimoDAO.criaPedidoEmprestimo(cpfUsuarioLogado, livrosSelecionadosc);
+        //emprestimoDAO.
         
         
         JOptionPane.showMessageDialog(null, "Pedido de Emprestimo enviado!");
@@ -187,9 +188,6 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-      
-        
-        
        
         
         //System.out.println( java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));

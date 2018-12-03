@@ -17,12 +17,19 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     ViewDevolverLivros enviaCpfDevolve;
     ViewAluguelLivro enviaCpfAluguel;
+    String cpfUsuarioLogado;
     
     /**
      * Creates new form ViewHomeAdm
      */
     public ViewHomeUsuario() {
         initComponents();
+        
+    }
+    
+    public ViewHomeUsuario(String cpf) {
+        initComponents();
+        this.cpfUsuarioLogado = cpf;
         
     }
     
@@ -124,9 +131,9 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     private void jButtonALivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonALivrosActionPerformed
         // TODO add your handling code here:
-        enviaCpfAluguel = new ViewAluguelLivro();
+        enviaCpfAluguel = new ViewAluguelLivro(cpfUsuarioLogado);
         enviaCpfAluguel.setVisible(true);
-        enviaCpfAluguel.recebeCpf(usuarioc.getCpf());
+        
         this.dispose();
     }//GEN-LAST:event_jButtonALivrosActionPerformed
     //Setta a data e hora sendo que tem a interface hora sobrescrita no fim
@@ -137,9 +144,9 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
         // TODO add your handling code here:
-        enviaCpfDevolve = new ViewDevolverLivros();
+        enviaCpfDevolve = new ViewDevolverLivros(cpfUsuarioLogado);
         enviaCpfDevolve.setVisible(true);
-        enviaCpfDevolve.recebeCpf(usuarioc.getCpf());
+        ;
         this.dispose();
     }//GEN-LAST:event_jButtonDevolverActionPerformed
 

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.bean.Estoque;
 import model.bean.Livro;
 
@@ -50,6 +51,44 @@ public class EstoqueDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
+    
+    public void atualizaQtdLivro(String isbn, int qtd){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        LivroDAO livroDAO = new LivroDAO();
+        Livro livro = livroDAO.findLivroByIsbn(isbn);
+        try {
+            stmt = con.prepareStatement("UPDATE estoque SET quantidade = ? WHERE id_livro = ?");
+            stmt.setInt(1,qtd);
+            stmt.setInt(2,livro.getId_livro());
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }   
+    }
+    
+//    public int retornaQtdLivro(String isbn){
+//        Connection con = ConnectionFactory.getConnection();
+//        PreparedStatement stmt = null;
+//        LivroDAO livroDAO = new LivroDAO();
+//        Livro livro = livroDAO.findLivroByIsbn(isbn);
+//        try {
+//            stmt = con.prepareStatement("UPDATE estoque SET quantidade = quantidade - 1 WHERE id_livro = ?");
+//            stmt.setInt(1,qtd);
+//            stmt.setInt(2,livro.getId_livro());
+//            
+//            stmt.executeUpdate();
+//            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
+//        }finally{
+//            ConnectionFactory.closeConnection(con, stmt);
+//        }   
+//    }
     
 //    public Estoque findEstoqueById(int id){
 //        Connection con = ConnectionFactory.getConnection();

@@ -45,7 +45,7 @@ public class ViewLogin extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(395, 303));
 
         jButtonLogin.setText("Logar");
-        jButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
@@ -60,7 +60,7 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel3.setText("Senha");
 
         jButtonCadastro.setText("Cadastre-se");
-        jButtonCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastroActionPerformed(evt);
@@ -79,7 +79,7 @@ public class ViewLogin extends javax.swing.JFrame {
         });
 
         txtTrocaSenha.setText("Esqueci a senha");
-        txtTrocaSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtTrocaSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtTrocaSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtTrocaSenhaMouseClicked(evt);
@@ -164,7 +164,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 enviaNomeAdm.recebeNome(usuario);
             }
             else{
-                enviaNomeUsuario = new ViewHomeUsuario();
+                enviaNomeUsuario = new ViewHomeUsuario(usuario.getCpf());
                 enviaNomeUsuario.setVisible(true);
                 enviaNomeUsuario.recebeNome(usuario);
             }

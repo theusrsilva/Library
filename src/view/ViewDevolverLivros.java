@@ -17,16 +17,18 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
     UsuarioDAO daousuario = new UsuarioDAO();
     Usuario usuario = new Usuario();
     ViewHomeUsuario enviaUsuario;
+    String cpfUsuarioLogado;
     
-    
-    public void recebeCpf(String cpf){
-        cpfUsuario=cpf;
-    }
     /**
      * Creates new form ViewDevolverLivros
      */
     public ViewDevolverLivros() {
         initComponents();
+    }
+    
+    public ViewDevolverLivros(String cpf) {
+        initComponents();
+        this.cpfUsuarioLogado = cpf;
     }
 
     /**

@@ -22,23 +22,29 @@ import model.dao.UsuarioDAO;
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
     private List<Livro> livrosSelecionados= new ArrayList<>();
-    String cpfUsuario;
     UsuarioDAO daousuario = new UsuarioDAO();
     ViewHomeUsuario enviaUsuario;
     ViewConfirmEmprestimo enviaCpfConfirma;
+    String cpfUsuarioLogado;
     
-    
-    public void recebeCpf(String cpf){
-        cpfUsuario=cpf;
-    }
-    
-    
+
     /**
      * Creates new form ViewAluguelLivro
      */
     public ViewAluguelLivro() {
         initComponents();
         
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivrosAluguel.getModel();
+        jTableLivrosAluguel.setRowSorter(new TableRowSorter(modelo));
+        livrosSelecionados.clear();
+        txtQuantidade.setText(String.valueOf(livrosSelecionados.size()));
+        readJTable();
+        
+    }
+    
+    public ViewAluguelLivro(String cpf) {
+        initComponents();
+        this.cpfUsuarioLogado = cpf;
         DefaultTableModel modelo = (DefaultTableModel) jTableLivrosAluguel.getModel();
         jTableLivrosAluguel.setRowSorter(new TableRowSorter(modelo));
         livrosSelecionados.clear();
@@ -309,9 +315,8 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
     private void jTableLivrosAluguelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivrosAluguelMouseClicked
         // TODO add your handling code here:
         Livro livro = new Livro();
-        LivroDAO daoLivro = new LivroDAO();
         Estoque estoque = new Estoque();
-        EstoqueDAO daoEstoque = new EstoqueDAO();
+
 
         livro.setIsbn((String) jTableLivrosAluguel.getValueAt(jTableLivrosAluguel.getSelectedRow(), 0));
         livro.setTitulo((String) jTableLivrosAluguel.getValueAt(jTableLivrosAluguel.getSelectedRow(),1));
@@ -344,7 +349,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
         // TODO add your handling code here:
         enviaUsuario = new ViewHomeUsuario();
         enviaUsuario.setVisible(true);
-        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuario));
+       // enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuario));
         this.dispose();
         
     }//GEN-LAST:event_jButtonVoltarActionPerformed
@@ -360,7 +365,7 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
        if(Integer.parseInt(txtQuantidade.getText())>0){
            ViewConfirmEmprestimo enviaLista;
-           enviaLista =new ViewConfirmEmprestimo(livrosSelecionados,cpfUsuario);
+           enviaLista =new ViewConfirmEmprestimo(livrosSelecionados,cpfUsuarioLogado);
            enviaLista.setVisible(true);
            
        }
@@ -376,7 +381,6 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
     private void jButtonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlusActionPerformed
         // TODO add your handling code here:
         Livro livro = new Livro();
-        Estoque estoque =new Estoque();
         LivroDAO livrodao = new LivroDAO();
         livro = livrodao.findLivroByIsbn((String) jTableLivrosAluguel.getValueAt(jTableLivrosAluguel.getSelectedRow(), 0));
         int i = 0;

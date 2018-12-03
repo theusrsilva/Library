@@ -73,25 +73,7 @@ public class LivroDAO {
         
         
     }
-    public void updateLivro(String isbn, int qtd){
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        Livro livro = findLivroByIsbn(isbn);
-        try {
-            stmt = con.prepareStatement("UPDATE estoque SET quantidade = ? WHERE id_livro = ?");
-            stmt.setInt(1,qtd);
-            stmt.setInt(2,livro.getId_livro());
-            
-            stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
-        }finally{
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-         
-         
-    }
+    
     
     public Livro findLivroByIsbn(String isbn){
         Connection con = ConnectionFactory.getConnection();

@@ -316,6 +316,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
         // TODO add your handling code here:S
             if(jTableLivros.getSelectedRow()!=-1){
             enviaLivro = new ViewQtdNova();
+            this.dispose();
             enviaLivro.setVisible(true);
             enviaLivro.recebeLivro(livro, estoque);
             

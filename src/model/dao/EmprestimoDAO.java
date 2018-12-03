@@ -18,7 +18,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.bean.Estoque;
 import model.bean.Livro;
 import model.bean.Usuario;
 
@@ -41,18 +44,23 @@ public class EmprestimoDAO {
         if (usuario != null) {
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
-            Connection con2 = ConnectionFactory.getConnection();
-            PreparedStatement stmt2 = null;
             ResultSet ultimoId = null;
-            String dataEmprestimo = geraDataFormatadaInicial();
-            String dataPrevista = geraDataFormatadaDevolucao();
+            
+            EstoqueDAO estoqueDAO = new EstoqueDAO();
+            
+            Connection con2 = ConnectionFactory.getConnection();
+            PreparedStatement stmt2 = null;   
+            
+            Date dataEmprestimo = new Date(System.currentTimeMillis());
+            Date dataPrevista = geraDataPrevista();
+            
 
             try {
                 stmt = con.prepareStatement("INSERT INTO emprestimo (id_usuario, data_emprestimo, data_devolucao, data_prevista, status_emprestimo, status_devolucao) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                 stmt.setInt(1, usuario.getId_usuario());
-                stmt.setDate(2, java.sql.Date.valueOf(dataEmprestimo));
+                stmt.setDate(2,dataEmprestimo);
                 stmt.setObject(3, null);
-                stmt.setDate(4, java.sql.Date.valueOf(dataPrevista));     
+                stmt.setDate(4, dataPrevista);     
                 stmt.setString(5, "PENDENTE");
                 stmt.setBoolean(6, false);
                 
@@ -69,34 +77,75 @@ public class EmprestimoDAO {
                     stmt2.setInt(2, livro.getId_livro());
                     stmt2.executeUpdate();
                     
+                    estoqueDAO.atualizaQtdLivro(livro.getIsbn(), idEmprestimo);
+                    
                 }
                 
-                JOptionPane.showMessageDialog(null, "Pedido criado com sucesso!");
+                
+                
+                
+                
+ 
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Falha ao criar o pedido!" + ex);
+                Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
 
             } finally {
                 ConnectionFactory.closeConnection(con, stmt, ultimoId);
                 ConnectionFactory.closeConnection(con2, stmt2);
             }
         }
-
     }
     
-    private String geraDataFormatadaInicial(){
-        DateFormat  dateFormatDMY = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date datainicial = new java.util.Date();
-        String dataFormatadaInicial = dateFormatDMY.format(new java.util.Date());
-        return dataFormatadaInicial;
+    public List<Livro> findLivrosEmpretadosPorCpf(String cpf){
+        List<Livro> livrosEmprestados = new ArrayList<>();
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt=con.prepareStatement("SELECT * FROM emprestimo e "
+                    + "INNER JOIN emprestimo_livro el ON(e.id_emprestimo = el.id_emprestimo) "
+                    + "INNER JOIN livro l ON (el.id_livro = l.id_livro) "
+                    + "INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? ");
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Livro livro = new Livro();
+                livro.setId_livro(rs.getInt("id_livro"));
+                livro.setTitulo(rs.getString("titulo"));
+                livro.setAno(rs.getInt("ano"));
+                livro.setAutor(rs.getString("autor"));
+                livro.setIsbn(rs.getString("isbn"));
+                livrosEmprestados.add(livro);
+                
+            }
+            
+            
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return livrosEmprestados;
     }
     
-   private String geraDataFormatadaDevolucao(){
+        
+    
+    
+//    private String geraDataFormatadaInicial(){
+//        DateFormat  dateFormatDMY = new SimpleDateFormat("dd/MM/yyyy");
+//        java.util.Date datainicial = new java.util.Date();
+//        String dataFormatadaInicial = dateFormatDMY.format(new java.util.Date());
+//        return dataFormatadaInicial;
+//    }
+//    
+   private java.sql.Date geraDataPrevista(){
         Calendar c = Calendar.getInstance();
-        DateFormat  dateFormatDMY = new SimpleDateFormat("dd/MM/yyyy");
         c.add(Calendar.DATE, 7);
-        java.util.Date dataDevolucao = c.getTime();
-        String dataFormatadaDevolucao = dateFormatDMY.format(dataDevolucao);
-        return dataFormatadaDevolucao;
+        java.sql.Date dataPrevista = new java.sql.Date(c.getTimeInMillis());
+        return dataPrevista;
    }
 }

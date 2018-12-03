@@ -145,12 +145,11 @@ public class ViewQtdNova extends javax.swing.JFrame {
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
         // TODO add your handling code here:
-        Livro livro = new Livro();
-        LivroDAO daoLivro = new LivroDAO();
-        Estoque estoque = new Estoque();
         EstoqueDAO daoEstoque = new EstoqueDAO();
-        daoLivro.updateLivro(txtIsbnAtt.getText(),Integer.parseInt(txtQtdAtt.getText()));
+        daoEstoque.atualizaQtdLivro(txtIsbnAtt.getText(),Integer.parseInt(txtQtdAtt.getText()));
+        ViewCadastroLivro viewCadastroLivro = new ViewCadastroLivro();
         this.dispose();
+        viewCadastroLivro.setVisible(true);
         
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
