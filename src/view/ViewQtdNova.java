@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import model.bean.Estoque;
 import model.bean.Livro;
 import model.dao.EstoqueDAO;
@@ -147,6 +148,7 @@ public class ViewQtdNova extends javax.swing.JFrame {
         // TODO add your handling code here:
         EstoqueDAO daoEstoque = new EstoqueDAO();
         daoEstoque.atualizaQtdLivro(txtIsbnAtt.getText(),Integer.parseInt(txtQtdAtt.getText()));
+        JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         ViewCadastroLivro viewCadastroLivro = new ViewCadastroLivro();
         this.dispose();
         viewCadastroLivro.setVisible(true);

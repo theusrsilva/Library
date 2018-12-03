@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.bean.Emprestimo;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.bean.PedidoEmprestimoDTO;
 import model.bean.Usuario;
 
 /**
@@ -34,6 +36,9 @@ public class EmprestimoDAO {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     private Connection con = null;
+    
+    private List<Livro> livrosDevolvidos = new ArrayList<>();
+    private EstoqueDAO estoqueDAO = new EstoqueDAO();
 
     public EmprestimoDAO() {
         con = ConnectionFactory.getConnection();
@@ -77,15 +82,10 @@ public class EmprestimoDAO {
                     stmt2.setInt(2, livro.getId_livro());
                     stmt2.executeUpdate();
                     
-                    estoqueDAO.atualizaQtdLivro(livro.getIsbn(), idEmprestimo);
+                    int quantidade = estoqueDAO.retornaQtdLivro(livro.getIsbn());
+                    estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade - 1);
                     
                 }
-                
-                
-                
-                
-                
- 
 
             } catch (SQLException ex) {
                 Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,8 +107,9 @@ public class EmprestimoDAO {
             stmt=con.prepareStatement("SELECT * FROM emprestimo e "
                     + "INNER JOIN emprestimo_livro el ON(e.id_emprestimo = el.id_emprestimo) "
                     + "INNER JOIN livro l ON (el.id_livro = l.id_livro) "
-                    + "INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? ");
+                    + "INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo != ? ");
             stmt.setString(1, cpf);
+            stmt.setString(2, "RECUSADO");
             rs = stmt.executeQuery();
             
             while(rs.next()){
@@ -121,9 +122,7 @@ public class EmprestimoDAO {
                 livrosEmprestados.add(livro);
                 
             }
-            
-            
-            
+     
             } catch (SQLException ex) {
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -132,6 +131,172 @@ public class EmprestimoDAO {
         return livrosEmprestados;
     }
     
+    public boolean usuarioJaTemEmprestimo(String cpf){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        boolean jaTemEmprestimo = false;
+        try {
+            stmt = con.prepareStatement("SELECT e.status_devolucao FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario)  WHERE u.cpf = ?");
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                if (rs.getBoolean(1) == false){
+                    jaTemEmprestimo = true;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+
+        }
+        return jaTemEmprestimo;
+    }
+    
+    public void devolveEmprestimo(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+                      
+            try {
+                stmt = con.prepareStatement("UPDATE emprestimo e INNER JOIN usuario u ON(e.id_usuario = u.id_usuario) SET e.data_devolucao = ? , e.status_devolucaO = ? WHERE u.cpf = ? ");
+                stmt.setDate(1,new Date(System.currentTimeMillis()) );
+                stmt.setBoolean(2,true);
+                stmt.setString(3, cpf);
+                stmt.executeUpdate();
+                
+                this.livrosDevolvidos = findLivrosEmpretadosPorCpf(cpf);
+                for( Livro livro : livrosDevolvidos){
+                    int quantidade = this.estoqueDAO.retornaQtdLivro(livro.getIsbn());
+                    estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade + 1);
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+            } 
+    }
+    
+    public void recusaEmprestimo(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+                      
+            try {
+                stmt = con.prepareStatement("UPDATE emprestimo e INNER JOIN usuario u ON(e.id_usuario = u.id_usuario) SET e.status_emprestimo = ? , e.status_devolucaO = ? WHERE u.cpf = ? ");
+                stmt.setString(1, "RECUSADO" );
+                stmt.setBoolean(2,true);
+                stmt.setString(3, cpf);
+                stmt.executeUpdate();
+                
+                this.livrosDevolvidos = findLivrosEmpretadosPorCpf(cpf);
+                for( Livro livro : livrosDevolvidos){
+                    int quantidade = this.estoqueDAO.retornaQtdLivro(livro.getIsbn());
+                    this.estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade + 1);
+                }
+                JOptionPane.showMessageDialog(null, "Pedido recusado com sucesso!");
+            } catch (SQLException ex) {
+                Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+            } 
+    }
+    
+    public void aceitaEmprestimo(String cpf){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            
+            Date dataEmprestimo = new Date(System.currentTimeMillis());
+            Date dataPrevista = geraDataPrevista();
+                      
+            try {
+                stmt = con.prepareStatement("UPDATE emprestimo e INNER JOIN usuario u ON(e.id_usuario = u.id_usuario) SET e.data_emprestimo = ?, e.data_prevista = ?, e.status_emprestimo = ? WHERE u.cpf = ? ");
+                stmt.setDate (1,dataEmprestimo);
+                stmt.setDate(2,dataPrevista);
+                stmt.setString(3, "APROVADO" );
+                stmt.setString(4, cpf);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Pedido aceito com sucesso");
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+            } 
+    }
+    
+    
+    public Emprestimo getInfosEmprestimo(String cpf){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        Emprestimo emprestimo = new Emprestimo();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo = ? AND e.status_devolucao = ?");
+            stmt.setString(1, cpf);
+            stmt.setString(2, "APROVADO");
+            stmt.setBoolean(3, false);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                
+                emprestimo.setDataEmpresimo(rs.getDate("data_emprestimo"));
+                emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
+                emprestimo.setDataPrevista(rs.getDate("data_prevista"));
+                emprestimo.setStatus_emprestimo(rs.getString("status_emprestimo"));
+                emprestimo.setStatus_devolucao(rs.getBoolean("status_devolucao"));
+                emprestimo.setId_emprestimo(rs.getInt("id_emprestimo"));
+                
+              
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+
+        }
+        return emprestimo;
+    }
+    
+     
+    public List<PedidoEmprestimoDTO> getPedidosPendentes(){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<PedidoEmprestimoDTO> pedidosPendentes = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE e.status_emprestimo = ?");
+            stmt.setString(1, "PENDENTE");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                PedidoEmprestimoDTO pedidoEmprestimoDTO = new PedidoEmprestimoDTO();
+                pedidoEmprestimoDTO.setDataDoPedido(rs.getDate("data_emprestimo"));
+                pedidoEmprestimoDTO.setCpf(rs.getString("cpf"));
+                pedidoEmprestimoDTO.setLivrosPedidos(this.findLivrosEmpretadosPorCpf(rs.getString("cpf")));
+                pedidoEmprestimoDTO.setNomeUsuario(rs.getString("nome"));
+                pedidosPendentes.add(pedidoEmprestimoDTO);
+                
+              
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+
+        }
+        return pedidosPendentes;
+    }
         
     
     

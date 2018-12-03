@@ -28,8 +28,6 @@ public class EstoqueDAO {
         
     }
     
-
-    
     public boolean save(Estoque estoque){
         String sql = "INSERT INTO estoque (id_livro,quantidade) VALUES (?,?)";
         
@@ -63,7 +61,7 @@ public class EstoqueDAO {
             stmt.setInt(2,livro.getId_livro());
             
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
         }finally{
@@ -71,44 +69,29 @@ public class EstoqueDAO {
         }   
     }
     
-//    public int retornaQtdLivro(String isbn){
-//        Connection con = ConnectionFactory.getConnection();
-//        PreparedStatement stmt = null;
-//        LivroDAO livroDAO = new LivroDAO();
-//        Livro livro = livroDAO.findLivroByIsbn(isbn);
-//        try {
-//            stmt = con.prepareStatement("UPDATE estoque SET quantidade = quantidade - 1 WHERE id_livro = ?");
-//            stmt.setInt(1,qtd);
-//            stmt.setInt(2,livro.getId_livro());
-//            
-//            stmt.executeUpdate();
-//            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro ao atualizar!"+ex);
-//        }finally{
-//            ConnectionFactory.closeConnection(con, stmt);
-//        }   
-//    }
+    public int retornaQtdLivro(String isbn){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        LivroDAO livroDAO = new LivroDAO();
+        Livro livro = livroDAO.findLivroByIsbn(isbn);
+        
+        int quantidade = 0;
+        
+        try {
+            stmt = con.prepareStatement("SELECT quantidade FROM estoque WHERE id_livro = ?");
+            stmt.setInt(1,livro.getId_livro());
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                quantidade = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }   
+        return quantidade;
+    }
     
-//    public Estoque findEstoqueById(int id){
-//        Connection con = ConnectionFactory.getConnection();
-//        PreparedStatement stmt =null;
-//        Estoque estoque = new Estoque();
-//        
-//        try {
-//            ResultSet rs = stmt.executeQuery("SELECT * from estoque WHERE id_estoque = " + id + ";");
-//            while(rs.next()){
-//                estoque.setId_estoque(id);
-//                estoque.setQuantidade(rs.getInt("quantidade"));
-//                estoque.setLivro(id_livro);
-//                
-//                
-//            }
-//            
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
 }

@@ -146,7 +146,6 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         enviaCpfDevolve = new ViewDevolverLivros(cpfUsuarioLogado);
         enviaCpfDevolve.setVisible(true);
-        ;
         this.dispose();
     }//GEN-LAST:event_jButtonDevolverActionPerformed
 

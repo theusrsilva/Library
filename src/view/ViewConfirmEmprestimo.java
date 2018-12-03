@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.bean.PedidoEmprestimoDTO;
 import model.dao.EmprestimoDAO;
 import model.dao.EstoqueDAO;
 import model.dao.LivroDAO;
@@ -176,10 +177,9 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
 
     private void jButtonConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmaActionPerformed
         emprestimoDAO.criaPedidoEmprestimo(cpfUsuarioLogado, livrosSelecionadosc);
-        //emprestimoDAO.
-        
         
         JOptionPane.showMessageDialog(null, "Pedido de Emprestimo enviado!");
+        this.dispose();
       
         
     }//GEN-LAST:event_jButtonConfirmaActionPerformed
@@ -188,7 +188,10 @@ public class ViewConfirmEmprestimo extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
+        
+        
+        
+        
         
         //System.out.println( java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
         

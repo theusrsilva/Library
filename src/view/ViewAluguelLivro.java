@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Estoque;
 import model.bean.Livro;
+import model.dao.EmprestimoDAO;
 import model.dao.EstoqueDAO;
 import model.dao.LivroDAO;
 import model.dao.UsuarioDAO;
@@ -362,8 +363,12 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
 
     private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
         // TODO add your handling code here:
-
-       if(Integer.parseInt(txtQuantidade.getText())>0){
+        EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+        boolean temEmprestimo = emprestimoDAO.usuarioJaTemEmprestimo(cpfUsuarioLogado);
+        if(temEmprestimo){
+            JOptionPane.showMessageDialog(null, "Você já tem um emprestimo ou já tem um pedido!");
+        }
+        if(Integer.parseInt(txtQuantidade.getText())>0 && !temEmprestimo){
            ViewConfirmEmprestimo enviaLista;
            enviaLista =new ViewConfirmEmprestimo(livrosSelecionados,cpfUsuarioLogado);
            enviaLista.setVisible(true);
@@ -421,7 +426,10 @@ public class ViewAluguelLivro extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+        emprestimoDAO.devolveEmprestimo("777.777.777-77");
+        
+        
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

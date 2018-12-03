@@ -73,11 +73,11 @@ public class Emprestimo {
         this.dataPrevista = dataPrevista;
     }
 
-    public boolean isStatus() {
+    public boolean isStatus_devolucao() {
         return status_devolucao;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus_devolucao(boolean status) {
         this.status_devolucao = status;
     }
     

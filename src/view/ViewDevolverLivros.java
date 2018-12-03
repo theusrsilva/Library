@@ -5,7 +5,14 @@
  */
 package view;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Emprestimo;
+import model.bean.Livro;
+import model.bean.PedidoEmprestimoDTO;
 import model.bean.Usuario;
+import model.dao.EmprestimoDAO;
+import model.dao.LivroDAO;
 import model.dao.UsuarioDAO;
 
 /**
@@ -13,7 +20,6 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewDevolverLivros extends javax.swing.JFrame {
-    String cpfUsuario;
     UsuarioDAO daousuario = new UsuarioDAO();
     Usuario usuario = new Usuario();
     ViewHomeUsuario enviaUsuario;
@@ -206,10 +212,27 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
         // TODO add your handling code here:
         enviaUsuario = new ViewHomeUsuario();
         enviaUsuario.setVisible(true);
-        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuario));
+        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuarioLogado));
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
-
+    public void readJTable(){
+//        DefaultTableModel modelo = (DefaultTableModel)jTableStatusLivro.getModel();
+//        modelo.setNumRows(0);
+//        EmprestimoDAO dao = new EmprestimoDAO();
+//        LivroDAO daoLivro = new LivroDAO();
+//        PedidoEmprestimoDTO dto = new PedidoEmprestimoDTO();
+//        Emprestimo Emprest = dao.getInfosEmprestimo(cpfUsuarioLogado);
+//        List<Livro> listaLivros = dao.findLivrosEmpretadosPorCpf(cpfUsuarioLogado);
+//        modelo.addRow(new Object[]{
+//                ,
+//                .getNomeUsuario(),
+//                lista.get(i).getLivrosPedidos().size(),
+//                n.getDataDoPedido()
+//                
+//            });
+            
+        }
+    
     /**
      * @param args the command line arguments
      */

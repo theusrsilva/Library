@@ -9,7 +9,10 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.bean.Emprestimo;
+import model.bean.Estoque;
 import model.bean.Livro;
+import model.bean.PedidoEmprestimoDTO;
 import model.dao.EmprestimoDAO;
 import model.dao.LivroDAO;
 
@@ -66,7 +69,7 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Solicitador", "Quantidade de livros", "Data do Empréstimo", "Data da devolução"
+                "CPF", "Solicitador", "Quantidade de livros", "Data do pedido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -77,17 +80,38 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableEmprestimos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableEmprestimosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableEmprestimos);
 
         jButtonAceitar.setText("Aceitar");
+        jButtonAceitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceitarActionPerformed(evt);
+            }
+        });
 
         jButtonRecusar.setText("Recusar");
+        jButtonRecusar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecusarActionPerformed(evt);
+            }
+        });
+
+        txtLivro1.setEditable(false);
 
         jLabel1.setText("Livro 1");
 
         jLabel2.setText("Livro 2");
 
+        txtLivro2.setEditable(false);
+
         jLabel3.setText("Livro 3");
+
+        txtLivro3.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,9 +183,56 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTableEmprestimosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmprestimosMouseClicked
+        // TODO add your handling code here:
+        EmprestimoDAO dao = new EmprestimoDAO();
+        List<Livro> lista = dao.findLivrosEmpretadosPorCpf((String) jTableEmprestimos.getValueAt(jTableEmprestimos.getSelectedRow(), 0));
+        if(lista.size()==3){
+            txtLivro1.setText(lista.get(0).getTitulo());
+            txtLivro2.setText(lista.get(1).getTitulo());
+            txtLivro3.setText(lista.get(2).getTitulo());
+        }else if(lista.size()==2){
+            txtLivro1.setText(lista.get(0).getTitulo());
+            txtLivro2.setText(lista.get(1).getTitulo());
+        }else{
+            txtLivro1.setText(lista.get(0).getTitulo());
+        }
+        
+        
+    }//GEN-LAST:event_jTableEmprestimosMouseClicked
+
+    private void jButtonRecusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecusarActionPerformed
+        // TODO add your handling code here:
+        EmprestimoDAO dao = new EmprestimoDAO();
+        dao.recusaEmprestimo((String) jTableEmprestimos.getValueAt(jTableEmprestimos.getSelectedRow(), 0));
+        readJTable();
+    }//GEN-LAST:event_jButtonRecusarActionPerformed
+
+    private void jButtonAceitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceitarActionPerformed
+        // TODO add your handling code here:
+        EmprestimoDAO dao = new EmprestimoDAO();
+        dao.aceitaEmprestimo((String) jTableEmprestimos.getValueAt(jTableEmprestimos.getSelectedRow(), 0));
+        readJTable();
+    }//GEN-LAST:event_jButtonAceitarActionPerformed
+
     public void readJTable(){
         DefaultTableModel modelo = (DefaultTableModel)jTableEmprestimos.getModel();
         modelo.setNumRows(0);
+        EmprestimoDAO dao = new EmprestimoDAO();
+        PedidoEmprestimoDTO dto = new PedidoEmprestimoDTO();
+        List<PedidoEmprestimoDTO> lista = dao.getPedidosPendentes();
+        int i = 0;
+        for (PedidoEmprestimoDTO n : lista) {
+            
+            modelo.addRow(new Object[]{
+                n.getCpf(),
+                n.getNomeUsuario(),
+                lista.get(i).getLivrosPedidos().size(),
+                n.getDataDoPedido()
+                
+            });
+            i++;
+        }
         
       
          
