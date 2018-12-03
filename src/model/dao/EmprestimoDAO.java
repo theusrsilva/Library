@@ -162,17 +162,18 @@ public class EmprestimoDAO {
             PreparedStatement stmt = null;
                       
             try {
-                stmt = con.prepareStatement("UPDATE emprestimo e INNER JOIN usuario u ON(e.id_usuario = u.id_usuario) SET e.data_devolucao = ? , e.status_devolucaO = ? WHERE u.cpf = ? ");
-                stmt.setDate(1,new Date(System.currentTimeMillis()) );
-                stmt.setBoolean(2,true);
-                stmt.setString(3, cpf);
-                stmt.executeUpdate();
-                
                 this.livrosDevolvidos = findLivrosEmpretadosPorCpf(cpf);
                 for( Livro livro : livrosDevolvidos){
                     int quantidade = this.estoqueDAO.retornaQtdLivro(livro.getIsbn());
                     estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade + 1);
                 }
+                
+                stmt = con.prepareStatement("UPDATE emprestimo e INNER JOIN usuario u ON(e.id_usuario = u.id_usuario) SET e.data_devolucao = ? , e.status_devolucaO = ? WHERE u.cpf = ? ");
+                stmt.setDate(1,new Date(System.currentTimeMillis()) );
+                stmt.setBoolean(2,true);
+                stmt.setString(3, cpf);
+                stmt.executeUpdate();
+ 
                 
             } catch (SQLException ex) {
                 Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,17 +188,19 @@ public class EmprestimoDAO {
             PreparedStatement stmt = null;
                       
             try {
+                this.livrosDevolvidos = findLivrosEmpretadosPorCpf(cpf);
+                for( Livro livro : livrosDevolvidos){
+                    int quantidade = this.estoqueDAO.retornaQtdLivro(livro.getIsbn());
+                    this.estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade + 1);
+                }
+                
                 stmt = con.prepareStatement("UPDATE emprestimo e INNER JOIN usuario u ON(e.id_usuario = u.id_usuario) SET e.status_emprestimo = ? , e.status_devolucaO = ? WHERE u.cpf = ? ");
                 stmt.setString(1, "RECUSADO" );
                 stmt.setBoolean(2,true);
                 stmt.setString(3, cpf);
                 stmt.executeUpdate();
                 
-                this.livrosDevolvidos = findLivrosEmpretadosPorCpf(cpf);
-                for( Livro livro : livrosDevolvidos){
-                    int quantidade = this.estoqueDAO.retornaQtdLivro(livro.getIsbn());
-                    this.estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade + 1);
-                }
+                
                 JOptionPane.showMessageDialog(null, "Pedido recusado com sucesso!");
             } catch (SQLException ex) {
                 Logger.getLogger(EmprestimoDAO.class.getName()).log(Level.SEVERE, null, ex);
