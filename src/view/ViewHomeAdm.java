@@ -138,8 +138,8 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
     private void jButtonGLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGLivrosActionPerformed
         // TODO add your handling code here:
-//        new ViewCadastroLivro(cpfUsuario).setVisible(true);
-//        this.dispose();
+        new ViewCadastroLivro(usuarioc.getCpf()).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonGLivrosActionPerformed
 
     private void jButtonGUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGUsuariosActionPerformed

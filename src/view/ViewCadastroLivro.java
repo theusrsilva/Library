@@ -25,8 +25,16 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
     private LivroDAO dao = new LivroDAO();
     private Estoque estoque = new Estoque();
     private EstoqueDAO daoEstoque = new EstoqueDAO();
+    private String cpfUsuario;
     public ViewCadastroLivro(){
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTableLivros.getModel();
+        jTableLivros.setRowSorter(new TableRowSorter(modelo));
+        readJTable();
+    }
+    public ViewCadastroLivro(String cpf){
+        initComponents();
+        cpfUsuario =cpf;
         DefaultTableModel modelo = (DefaultTableModel) jTableLivros.getModel();
         jTableLivros.setRowSorter(new TableRowSorter(modelo));
         readJTable();
@@ -353,7 +361,7 @@ public class ViewCadastroLivro extends javax.swing.JFrame {
 
     private void txtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVoltarActionPerformed
         // TODO add your handling code here:
-        new ViewHomeAdm().setVisible(true);
+        new ViewHomeAdm(cpfUsuario).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_txtVoltarActionPerformed
 

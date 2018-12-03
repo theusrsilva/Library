@@ -304,13 +304,13 @@ public class EmprestimoDAO {
         
     
     
-//    private String geraDataFormatadaInicial(){
-//        DateFormat  dateFormatDMY = new SimpleDateFormat("dd/MM/yyyy");
-//        java.util.Date datainicial = new java.util.Date();
-//        String dataFormatadaInicial = dateFormatDMY.format(new java.util.Date());
-//        return dataFormatadaInicial;
-//    }
-//    
+    private String geraDataFormatada(java.sql.Date data){
+        DateFormat  dateFormatDMY = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String dataFormatadaInicial = dateFormatDMY.format(data);
+        return dataFormatadaInicial;
+    }
+    
    private java.sql.Date geraDataPrevista(){
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 7);

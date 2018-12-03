@@ -5,8 +5,11 @@
  */
 package view;
 
-import java.util.Date;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Emprestimo;
 import model.bean.Livro;
@@ -26,7 +29,7 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
     private ViewHomeUsuario enviaUsuario;
     private String cpfUsuarioLogado;
     private EmprestimoDAO daoEmprestimo = new EmprestimoDAO();
-    private Date data = new Date();
+    private Date data = new Date(System.currentTimeMillis());
     
     /**
      * Creates new form ViewDevolverLivros
@@ -35,13 +38,19 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
         initComponents();
         readJTable();
     }
+    private String geraDataFormatada(java.sql.Date data){
+        DateFormat  dateFormatDMY = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String dataFormatadaInicial = dateFormatDMY.format(data);
+        return dataFormatadaInicial;
+    }
     
     public ViewDevolverLivros(String cpf) {
         initComponents();
         this.cpfUsuarioLogado = cpf;
-        txtDataDev.setText(daoEmprestimo.getInfosEmprestimo(cpf).getDataPrevista().toString());
-        txtDataEmprestimo.setText(daoEmprestimo.getInfosEmprestimo(cpf).getDataEmpresimo().toString());
-        txtDataHoje.setText(data.toString());
+        txtDataDev.setText(geraDataFormatada(daoEmprestimo.getInfosEmprestimo(cpf).getDataPrevista()));
+        txtDataEmprestimo.setText(geraDataFormatada(daoEmprestimo.getInfosEmprestimo(cpf).getDataEmpresimo()));
+        txtDataHoje.setText(geraDataFormatada(data));
         readJTable();
     }
 
@@ -122,6 +131,11 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
 
         txtDataHoje.setEditable(false);
         txtDataHoje.setBackground(new java.awt.Color(153, 153, 153));
+        txtDataHoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataHojeActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Data de hoje");
 
@@ -205,9 +219,14 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
     private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
         // TODO add your handling code here:
         daoEmprestimo.devolveEmprestimo(cpfUsuarioLogado);
+        JOptionPane.showMessageDialog(null,"Livro(s) devolvido(s) com sucesso!");
         readJTable();
         
     }//GEN-LAST:event_jButtonDevolverActionPerformed
+
+    private void txtDataHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataHojeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataHojeActionPerformed
     public void readJTable(){
         DefaultTableModel modelo = (DefaultTableModel)jTableStatusLivros.getModel();
         modelo.setNumRows(0);
