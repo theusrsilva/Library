@@ -5,7 +5,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import model.bean.Usuario;
+import model.dao.EmprestimoDAO;
 import model.dao.UsuarioDAO;
 
 /**
@@ -13,11 +15,11 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewHomeUsuario extends javax.swing.JFrame {
-    Usuario usuarioc = new Usuario();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
-    ViewDevolverLivros enviaCpfDevolve;
-    ViewAluguelLivro enviaCpfAluguel;
-    String cpfUsuarioLogado;
+    private Usuario usuarioc = new Usuario();
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private ViewDevolverLivros enviaCpfDevolve;
+    private ViewAluguelLivro enviaCpfAluguel;
+    private String cpfUsuarioLogado;
     
     /**
      * Creates new form ViewHomeAdm
@@ -95,7 +97,7 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
                 .addGap(93, 93, 93)
                 .addComponent(txtOq)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                 .addGap(70, 70, 70))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,9 +146,16 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
         // TODO add your handling code here:
-        enviaCpfDevolve = new ViewDevolverLivros(cpfUsuarioLogado);
-        enviaCpfDevolve.setVisible(true);
-        this.dispose();
+         EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+        boolean temEmprestimo = emprestimoDAO.usuarioJaTemEmprestimo(cpfUsuarioLogado);
+        if (!temEmprestimo){
+            JOptionPane.showMessageDialog(null, "Você não tem empréstimos");
+        }
+        else{
+            enviaCpfDevolve = new ViewDevolverLivros(cpfUsuarioLogado);
+            enviaCpfDevolve.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jButtonDevolverActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

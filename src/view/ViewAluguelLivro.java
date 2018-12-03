@@ -23,10 +23,10 @@ import model.dao.UsuarioDAO;
  */
 public class ViewAluguelLivro extends javax.swing.JFrame {
     private List<Livro> livrosSelecionados= new ArrayList<>();
-    UsuarioDAO daousuario = new UsuarioDAO();
-    ViewHomeUsuario enviaUsuario;
-    ViewConfirmEmprestimo enviaCpfConfirma;
-    String cpfUsuarioLogado;
+    private UsuarioDAO daousuario = new UsuarioDAO();
+    private ViewHomeUsuario enviaUsuario;
+    private ViewConfirmEmprestimo enviaCpfConfirma;
+    private String cpfUsuarioLogado;
     
 
     /**

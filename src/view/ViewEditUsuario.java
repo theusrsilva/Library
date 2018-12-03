@@ -18,8 +18,9 @@ import model.dao.UsuarioDAO;
 public class ViewEditUsuario extends javax.swing.JFrame {
 
     private Usuario usuario = new Usuario();
-
+    private String cpfUsuario;
     private UsuarioDAO dao = new UsuarioDAO();
+    private ViewHomeAdm devolveUsuario = new ViewHomeAdm();
     /**
      * Creates new form ViewEditUsuario
      */
@@ -28,6 +29,9 @@ public class ViewEditUsuario extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
         jTableUsuarios.setRowSorter(new TableRowSorter(modelo));
         readJTable();
+    }
+    public void recebeUsuario(Usuario usuario){
+        cpfUsuario = usuario.getCpf();
     }
 
     public void readJTable() {
@@ -240,7 +244,9 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
-        new ViewHomeAdm().setVisible(true);
+        
+        devolveUsuario.recebeNome(dao.findByCpf(cpfUsuario));
+        devolveUsuario.setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButtonVoltarActionPerformed
@@ -300,7 +306,7 @@ public class ViewEditUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuário já é admin!");
         }
     }//GEN-LAST:event_jButtonAdminActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

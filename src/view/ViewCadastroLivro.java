@@ -20,11 +20,11 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewCadastroLivro extends javax.swing.JFrame {
-    ViewQtdNova enviaLivro;
-    Livro livro = new Livro();
-    LivroDAO dao = new LivroDAO();
-    Estoque estoque = new Estoque();
-    EstoqueDAO daoEstoque = new EstoqueDAO();
+    private ViewQtdNova enviaLivro;
+    private Livro livro = new Livro();
+    private LivroDAO dao = new LivroDAO();
+    private Estoque estoque = new Estoque();
+    private EstoqueDAO daoEstoque = new EstoqueDAO();
     public ViewCadastroLivro(){
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTableLivros.getModel();

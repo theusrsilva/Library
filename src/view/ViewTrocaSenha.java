@@ -19,7 +19,7 @@ import model.dao.UsuarioDAO;
 public class ViewTrocaSenha extends javax.swing.JFrame {
     private Usuario usuario = new Usuario();
     private UsuarioDAO dao = new UsuarioDAO();
-    MaskFormatter maskData = null;
+    private MaskFormatter maskData = null;
     /**
      * Creates new form ViewTrocaSenha
      */

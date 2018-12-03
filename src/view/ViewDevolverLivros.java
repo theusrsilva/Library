@@ -20,10 +20,10 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewDevolverLivros extends javax.swing.JFrame {
-    UsuarioDAO daousuario = new UsuarioDAO();
-    Usuario usuario = new Usuario();
-    ViewHomeUsuario enviaUsuario;
-    String cpfUsuarioLogado;
+    private UsuarioDAO daousuario = new UsuarioDAO();
+    private Usuario usuario = new Usuario();
+    private ViewHomeUsuario enviaUsuario;
+    private String cpfUsuarioLogado;
     
     /**
      * Creates new form ViewDevolverLivros
