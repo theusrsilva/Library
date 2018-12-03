@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Emprestimo;
@@ -24,17 +25,24 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
     private Usuario usuario = new Usuario();
     private ViewHomeUsuario enviaUsuario;
     private String cpfUsuarioLogado;
+    private EmprestimoDAO daoEmprestimo = new EmprestimoDAO();
+    private Date data = new Date();
     
     /**
      * Creates new form ViewDevolverLivros
      */
     public ViewDevolverLivros() {
         initComponents();
+        readJTable();
     }
     
     public ViewDevolverLivros(String cpf) {
         initComponents();
         this.cpfUsuarioLogado = cpf;
+        txtDataDev.setText(daoEmprestimo.getInfosEmprestimo(cpf).getDataPrevista().toString());
+        txtDataEmprestimo.setText(daoEmprestimo.getInfosEmprestimo(cpf).getDataEmpresimo().toString());
+        txtDataHoje.setText(data.toString());
+        readJTable();
     }
 
     /**
@@ -49,20 +57,12 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
         jButtonVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableStatusLivros = new javax.swing.JTable();
-        txtTitulo = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtDataEmprestimo = new javax.swing.JTextField();
+        txtDataDev = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jButtonDevolver = new javax.swing.JButton();
+        txtDataHoje = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,42 +91,37 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableStatusLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableStatusLivrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableStatusLivros);
 
-        txtTitulo.setEditable(false);
-        txtTitulo.setBackground(new java.awt.Color(153, 153, 153));
+        txtDataEmprestimo.setEditable(false);
+        txtDataEmprestimo.setBackground(new java.awt.Color(153, 153, 153));
+        txtDataEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataEmprestimoActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setEditable(false);
-        jTextField2.setBackground(new java.awt.Color(153, 153, 153));
-
-        jTextField3.setEditable(false);
-        jTextField3.setBackground(new java.awt.Color(153, 153, 153));
-
-        jTextField4.setEditable(false);
-        jTextField4.setBackground(new java.awt.Color(153, 153, 153));
-
-        jTextField5.setEditable(false);
-        jTextField5.setBackground(new java.awt.Color(153, 153, 153));
-
-        jTextField6.setEditable(false);
-        jTextField6.setBackground(new java.awt.Color(153, 153, 153));
-
-        jLabel1.setText("Título do livro");
-
-        jLabel2.setText("Autor");
+        txtDataDev.setEditable(false);
+        txtDataDev.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel3.setText("Data do empréstimo");
 
         jLabel4.setText("Data de devolução");
 
-        jLabel5.setText("Ano");
+        jButtonDevolver.setText("Devolver");
+        jButtonDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDevolverActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setText("ISBN");
-
-        jButton1.setText("Devolver");
-
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(153, 153, 153));
+        txtDataHoje.setEditable(false);
+        txtDataHoje.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel7.setText("Data de hoje");
 
@@ -137,37 +132,30 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButtonVoltar)
-                                .addComponent(txtTitulo)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
+                            .addComponent(jButtonVoltar)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jButton1))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(0, 81, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(78, 78, 78)
+                                                .addComponent(jLabel4))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtDataEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(112, 112, 112)
+                                                .addComponent(txtDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtDataHoje, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonDevolver)))))
+                        .addGap(144, 144, 144)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -175,32 +163,22 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonVoltar)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDataHoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDevolver))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -215,24 +193,37 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
         enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuarioLogado));
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
+
+    private void jTableStatusLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStatusLivrosMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTableStatusLivrosMouseClicked
+
+    private void txtDataEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataEmprestimoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataEmprestimoActionPerformed
+
+    private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
+        // TODO add your handling code here:
+        daoEmprestimo.devolveEmprestimo(cpfUsuarioLogado);
+        readJTable();
+        
+    }//GEN-LAST:event_jButtonDevolverActionPerformed
     public void readJTable(){
-//        DefaultTableModel modelo = (DefaultTableModel)jTableStatusLivro.getModel();
-//        modelo.setNumRows(0);
-//        EmprestimoDAO dao = new EmprestimoDAO();
-//        LivroDAO daoLivro = new LivroDAO();
-//        PedidoEmprestimoDTO dto = new PedidoEmprestimoDTO();
-//        Emprestimo Emprest = dao.getInfosEmprestimo(cpfUsuarioLogado);
-//        List<Livro> listaLivros = dao.findLivrosEmpretadosPorCpf(cpfUsuarioLogado);
-//        modelo.addRow(new Object[]{
-//                ,
-//                .getNomeUsuario(),
-//                lista.get(i).getLivrosPedidos().size(),
-//                n.getDataDoPedido()
-//                
-//            });
+        DefaultTableModel modelo = (DefaultTableModel)jTableStatusLivros.getModel();
+        modelo.setNumRows(0);
+        EmprestimoDAO dao = new EmprestimoDAO();
+        Emprestimo Emprest = dao.getInfosEmprestimo(cpfUsuarioLogado);
+        List<Livro> listaLivros = dao.findLivrosEmpretadosPorCpf(cpfUsuarioLogado);
+        for( Livro n: listaLivros){
+            modelo.addRow(new Object[]{
+               n.getTitulo(),
+               n.getAutor(),
+               Emprest.getDataPrevista()
+            });
             
         }
-    
+    }
     /**
      * @param args the command line arguments
      */
@@ -269,23 +260,15 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonDevolver;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableStatusLivros;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField txtTitulo;
+    private javax.swing.JTextField txtDataDev;
+    private javax.swing.JTextField txtDataEmprestimo;
+    private javax.swing.JTextField txtDataHoje;
     // End of variables declaration//GEN-END:variables
 }

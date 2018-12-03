@@ -51,8 +51,6 @@ public class EmprestimoDAO {
             PreparedStatement stmt = null;
             ResultSet ultimoId = null;
             
-            EstoqueDAO estoqueDAO = new EstoqueDAO();
-            
             Connection con2 = ConnectionFactory.getConnection();
             PreparedStatement stmt2 = null;   
             
@@ -82,7 +80,7 @@ public class EmprestimoDAO {
                     stmt2.setInt(2, livro.getId_livro());
                     stmt2.executeUpdate();
                     
-                    int quantidade = estoqueDAO.retornaQtdLivro(livro.getIsbn());
+                    int quantidade = this.estoqueDAO.retornaQtdLivro(livro.getIsbn());
                     estoqueDAO.atualizaQtdLivro(livro.getIsbn(), quantidade - 1);
                     
                 }
@@ -107,9 +105,10 @@ public class EmprestimoDAO {
             stmt=con.prepareStatement("SELECT * FROM emprestimo e "
                     + "INNER JOIN emprestimo_livro el ON(e.id_emprestimo = el.id_emprestimo) "
                     + "INNER JOIN livro l ON (el.id_livro = l.id_livro) "
-                    + "INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo != ? ");
+                    + "INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo != ? AND e.status_devolucao = ?");
             stmt.setString(1, cpf);
             stmt.setString(2, "RECUSADO");
+            stmt.setBoolean(3, true);
             rs = stmt.executeQuery();
             
             while(rs.next()){

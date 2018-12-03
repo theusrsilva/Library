@@ -169,7 +169,7 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -187,15 +187,22 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
         // TODO add your handling code here:
         EmprestimoDAO dao = new EmprestimoDAO();
         List<Livro> lista = dao.findLivrosEmpretadosPorCpf((String) jTableEmprestimos.getValueAt(jTableEmprestimos.getSelectedRow(), 0));
-        if(lista.size()==3){
-            txtLivro1.setText(lista.get(0).getTitulo());
-            txtLivro2.setText(lista.get(1).getTitulo());
-            txtLivro3.setText(lista.get(2).getTitulo());
-        }else if(lista.size()==2){
-            txtLivro1.setText(lista.get(0).getTitulo());
-            txtLivro2.setText(lista.get(1).getTitulo());
-        }else{
-            txtLivro1.setText(lista.get(0).getTitulo());
+        
+        switch (lista.size()) {
+            case 3:
+                txtLivro1.setText(lista.get(0).getTitulo());
+                txtLivro2.setText(lista.get(1).getTitulo());
+                txtLivro3.setText(lista.get(2).getTitulo());
+                break;
+            case 2:
+                txtLivro1.setText(lista.get(0).getTitulo());
+                txtLivro2.setText(lista.get(1).getTitulo());
+                break;
+            case 1:
+                txtLivro1.setText(lista.get(0).getTitulo());
+                break;
+            default:
+                break;
         }
         
         
