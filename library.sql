@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: 01-Dez-2018 às 18:34
+-- Generation Time: 03-Dez-2018 às 03:17
 -- Versão do servidor: 5.7.23
 -- versão do PHP: 7.2.10
 
@@ -36,7 +36,17 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `id_usuario` (`id_usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `id_usuario`) VALUES
+(1, 6),
+(2, 1),
+(3, 5),
+(4, 7);
 
 -- --------------------------------------------------------
 
@@ -51,7 +61,8 @@ CREATE TABLE IF NOT EXISTS `emprestimo` (
   `data_emprestimo` date NOT NULL,
   `data_devolucao` date NOT NULL,
   `data_prevista` date NOT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `status_emprestimo` varchar(10) NOT NULL,
+  `status_devolucao` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_emprestimo`),
   KEY `id_usuario` (`id_usuario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -183,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha_hash` varchar(60) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -192,7 +203,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `cpf`, `nome`, `telefone`, `email`, `senha_hash`) VALUES
 (1, '123.643.267-37', 'Matheus Rocha', '(21)98477-0307', 'theusrsilva@gmail.com', 'f7c878036d1dde70eedb6fc3e8a994ab'),
 (5, '149.849.317-33', 'Guilherme Cavalcante', '(21)99319-5740', 'guikcsteam2@gmail.com', 'cb8dc34873148e97abe9b3c776600c36'),
-(6, '999.999.999-99', 'Teste', '(99)99999-9999', 'theusrsilva@gmail.com', 'b706835de79a2b4e80506f582af3676a');
+(6, '999.999.999-99', 'Testeeeee', '(99)99999-9998', 'theusrsilva@gmail.com', 'b706835de79a2b4e80506f582af3676a'),
+(7, '111.111.111-11', 'funciona pfvr', '(11)1111-1111', 'dhasjdfhsaif', '202cb962ac59075b964b07152d234b70'),
+(9, '222.222.222-22', 'fgdsfgjnds', '(22)2222-2222', '22222222', 'bcbe3365e6ac95ea2c0343a2395834dd');
 
 -- --------------------------------------------------------
 
@@ -207,6 +220,16 @@ CREATE TABLE IF NOT EXISTS `usuario_admin` (
   KEY `id_usuario` (`id_usuario`),
   KEY `id_admin` (`id_admin`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `usuario_admin`
+--
+
+INSERT INTO `usuario_admin` (`id_usuario`, `id_admin`) VALUES
+(6, 1),
+(1, 2),
+(5, 3),
+(7, 4);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
