@@ -159,14 +159,13 @@ public class ViewLogin extends javax.swing.JFrame {
         if(dao.checkLogin(txtCpf.getText(), txtsenha.getText())){
             usuario = dao.findByCpf(txtCpf.getText());
             if(dao.isAdmin(usuario.getCpf())){
-                enviaNomeAdm = new ViewHomeAdm();
+                enviaNomeAdm = new ViewHomeAdm(usuario.getCpf());
                 enviaNomeAdm.setVisible(true);
-                enviaNomeAdm.recebeNome(usuario);
             }
             else{
                 enviaNomeUsuario = new ViewHomeUsuario(usuario.getCpf());
                 enviaNomeUsuario.setVisible(true);
-                enviaNomeUsuario.recebeNome(usuario);
+                
             }
             
             

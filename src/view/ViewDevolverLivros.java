@@ -188,9 +188,8 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
-        enviaUsuario = new ViewHomeUsuario();
+        enviaUsuario = new ViewHomeUsuario(cpfUsuarioLogado);
         enviaUsuario.setVisible(true);
-        enviaUsuario.recebeNome(daousuario.findByCpf(cpfUsuarioLogado));
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 

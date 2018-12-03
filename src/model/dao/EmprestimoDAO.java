@@ -108,7 +108,7 @@ public class EmprestimoDAO {
                     + "INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo != ? AND e.status_devolucao = ?");
             stmt.setString(1, cpf);
             stmt.setString(2, "RECUSADO");
-            stmt.setBoolean(3, true);
+            stmt.setBoolean(3, false);
             rs = stmt.executeQuery();
             
             while(rs.next()){

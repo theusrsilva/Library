@@ -20,7 +20,6 @@ public class ViewEditUsuario extends javax.swing.JFrame {
     private Usuario usuario = new Usuario();
     private String cpfUsuario;
     private UsuarioDAO dao = new UsuarioDAO();
-    private ViewHomeAdm devolveUsuario;
     /**
      * Creates new form ViewEditUsuario
      */
@@ -30,9 +29,14 @@ public class ViewEditUsuario extends javax.swing.JFrame {
         jTableUsuarios.setRowSorter(new TableRowSorter(modelo));
         readJTable();
     }
-    public void recebeUsuario(Usuario usuario){
-        cpfUsuario = usuario.getCpf();
+    public ViewEditUsuario(String cpf) {
+        initComponents();
+        cpfUsuario = cpf;
+        DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
+        jTableUsuarios.setRowSorter(new TableRowSorter(modelo));
+        readJTable();
     }
+    
 
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
@@ -244,14 +248,10 @@ public class ViewEditUsuario extends javax.swing.JFrame {
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         // TODO add your handling code here:
-
-        devolveUsuario.setVisible(true);
+        ViewHomeAdm enviAdm;
+        enviAdm = new ViewHomeAdm(cpfUsuario);
+        enviAdm.setVisible(true);
         this.dispose();
-
-//        devolveUsuario = new ViewHomeAdm();
-//        devolveUsuario.recebeNome(cpfUsuario);
-//        devolveUsuario.setVisible(true);
-//        this.dispose();
 
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
