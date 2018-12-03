@@ -23,25 +23,22 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCpf" pref="125" max="32767" attributes="0"/>
-                          <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtSenhaNova" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
-                      <Component id="jButtonAtualizar" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jButtonVoltar" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCpf" pref="125" max="32767" attributes="0"/>
+                      <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtSenhaNova" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="176" max="32767" attributes="0"/>
+              <EmptySpace pref="105" max="32767" attributes="0"/>
+              <Component id="jButtonAtualizar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,7 +58,10 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="txtSenhaNova" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="66" max="32767" attributes="0"/>
-              <Component id="jButtonAtualizar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonVoltar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -105,6 +105,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAtualizarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonVoltar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Voltar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVoltarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

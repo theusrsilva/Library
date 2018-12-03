@@ -38,6 +38,7 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtSenhaNova = new javax.swing.JTextField();
         jButtonAtualizar = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,25 +67,31 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
             }
         });
 
+        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtTelefone)
-                            .addComponent(txtSenhaNova)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jButtonAtualizar)))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonVoltar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                        .addComponent(txtTelefone)
+                        .addComponent(txtSenhaNova)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(jButtonAtualizar)
+                .addGap(96, 96, 96))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +109,9 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSenhaNova, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(jButtonAtualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAtualizar)
+                    .addComponent(jButtonVoltar))
                 .addGap(48, 48, 48))
         );
 
@@ -116,6 +125,12 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
         new ViewLogin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        // TODO add your handling code here:
+        new ViewLogin().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,6 +169,7 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
