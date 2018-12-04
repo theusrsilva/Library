@@ -49,7 +49,7 @@ public class ViewDevolverLivros extends javax.swing.JFrame {
         initComponents();
         this.cpfUsuarioLogado = cpf;
         txtDataDev.setText(geraDataFormatada(daoEmprestimo.getInfosEmprestimo(cpf).getDataPrevista()));
-        txtDataEmprestimo.setText(geraDataFormatada(daoEmprestimo.getInfosEmprestimo(cpf).getDataEmpresimo()));
+        txtDataEmprestimo.setText(geraDataFormatada(daoEmprestimo.getInfosEmprestimo(cpf).getDataEmprestimo()));
         txtDataHoje.setText(geraDataFormatada(data));
         readJTable();
     }

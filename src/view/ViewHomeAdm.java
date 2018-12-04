@@ -155,8 +155,8 @@ public class ViewHomeAdm extends javax.swing.JFrame {
 
     private void jButtonEmprestismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmprestismoActionPerformed
         // TODO add your handling code here:
-//        new ViewGEmprestimos(cpfUsuario).setVisible(true);
-//        this.dispose();
+        new ViewGEmprestimos(usuarioc.getCpf()).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonEmprestismoActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed

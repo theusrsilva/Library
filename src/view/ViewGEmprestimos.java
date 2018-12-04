@@ -22,7 +22,7 @@ import model.dao.LivroDAO;
  */
 public class ViewGEmprestimos extends javax.swing.JFrame {
 
-
+    private String cpfusu;
     
     
     /**
@@ -33,7 +33,11 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
 
         readJTable();
     }
-
+    public ViewGEmprestimos(String cpf) {
+        initComponents();
+        cpfusu=cpf;
+        readJTable();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,7 +183,7 @@ public class ViewGEmprestimos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new ViewHomeAdm().setVisible(true);
+        new ViewHomeAdm(cpfusu).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

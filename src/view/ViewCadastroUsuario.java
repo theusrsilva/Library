@@ -8,6 +8,7 @@ package view;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import model.bean.Usuario;
@@ -18,19 +19,21 @@ import model.dao.UsuarioDAO;
  * @author Rocha
  */
 public class ViewCadastroUsuario extends javax.swing.JFrame {
+
     private MaskFormatter maskData = null;
+
     /**
      * Creates new form JCadastro
      */
     public ViewCadastroUsuario() {
         initComponents();
         try {
-                
-                maskData = new MaskFormatter("(##)####-####");
-                maskData.install(txtTelefone);
-            } catch (ParseException ex) {
-                Logger.getLogger(ViewTrocaSenha.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            maskData = new MaskFormatter("(##)####-####");
+            maskData.install(txtTelefone);
+        } catch (ParseException ex) {
+            Logger.getLogger(ViewTrocaSenha.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -182,16 +185,23 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
     private void BCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCadastroActionPerformed
         // TODO add your handling code here:
-        Usuario u = new Usuario();
-        UsuarioDAO dao = new UsuarioDAO();
-        u.setNome(txtNome.getText());
-        u.setCpf(txtCpf.getText());
-        u.setEmail(txtEmail.getText());
-        u.setTelefone(txtTelefone.getText());
-        u.setSenha_hash(txtSenha.getText());
-        dao.create(u);
-        new ViewLogin().setVisible(true);
-        this.dispose();
+        if (txtTelefone.getText().isEmpty() || txtCpf.getText().isEmpty() || 
+                txtSenha.getText().isEmpty()||txtEmail.getText().isEmpty()||
+                txtNome.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Dados incompletos!");
+
+        } else {
+            Usuario u = new Usuario();
+            UsuarioDAO dao = new UsuarioDAO();
+            u.setNome(txtNome.getText());
+            u.setCpf(txtCpf.getText());
+            u.setEmail(txtEmail.getText());
+            u.setTelefone(txtTelefone.getText());
+            u.setSenha_hash(txtSenha.getText());
+            dao.create(u);
+            new ViewLogin().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_BCadastroActionPerformed
 
     private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
@@ -204,8 +214,8 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         new ViewLogin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void troca(){
-        if(jToggleButton9.isSelected()){
+    public void troca() {
+        if (jToggleButton9.isSelected()) {
             try {
                 maskData.uninstall();
                 maskData = new MaskFormatter("(##)#####-####");
@@ -213,8 +223,8 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 Logger.getLogger(ViewTrocaSenha.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        }else{
+
+        } else {
             try {
                 maskData.uninstall();
                 maskData = new MaskFormatter("(##)####-####");
@@ -224,6 +234,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
             }
         }
     }
+
     /**
      * @param args the command line arguments
      */

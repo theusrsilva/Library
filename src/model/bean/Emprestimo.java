@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Emprestimo {
 
     private int id_emprestimo;
-    private Date dataEmpresimo;
+    private Date dataEmprestimo;
     private Date dataDevolucao;
     private Date dataPrevista;
     private boolean status_devolucao;
@@ -22,7 +22,7 @@ public class Emprestimo {
     
     
     public Emprestimo(Date dataEmpresimo, Date dataDevolucao, Date dataPrevista, boolean status_devolucao, String status_emprestimo) {
-        this.dataEmpresimo = dataEmpresimo;
+        this.dataEmprestimo = dataEmpresimo;
         this.dataDevolucao = dataDevolucao;
         this.dataPrevista = dataPrevista;
         this.status_devolucao = status_devolucao;
@@ -45,13 +45,13 @@ public class Emprestimo {
     }
 
  
-    public Date getDataEmpresimo() {
-        return dataEmpresimo;
+    public Date getDataEmprestimo() {
+        return dataEmprestimo;
     }
 
    
-    public void setDataEmpresimo(Date dataEmpresimo) {
-        this.dataEmpresimo = dataEmpresimo;
+    public void setDataEmprestimo(Date dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
     }
 
 

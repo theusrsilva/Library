@@ -8,6 +8,7 @@ package view;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
@@ -147,9 +148,14 @@ public class ViewTrocaSenha extends javax.swing.JFrame {
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
         // TODO add your handling code here:
-        dao.updateUsuarioPCpf(txtCpf.getText(), txtTelefone.getText(),txtSenhaNova.getText());
-        new ViewLogin().setVisible(true);
-        this.dispose();
+        if(txtTelefone.getText().isEmpty()||txtCpf.getText().isEmpty()||txtSenhaNova.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Dados incompletos!");
+        }else{
+            dao.updateUsuarioPCpf(txtCpf.getText(), txtTelefone.getText(),txtSenhaNova.getText());
+            new ViewLogin().setVisible(true);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed

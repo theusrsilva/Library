@@ -137,8 +137,9 @@ public class EmprestimoDAO {
         
         boolean jaTemEmprestimo = false;
         try {
-            stmt = con.prepareStatement("SELECT e.status_devolucao FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario)  WHERE u.cpf = ?");
+            stmt = con.prepareStatement("SELECT e.status_devolucao FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario)  WHERE u.cpf = ? AND e.status_emprestimo = ?");
             stmt.setString(1, cpf);
+            stmt.setString(2, "APROVADO");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 if (rs.getBoolean(1) == false){
@@ -242,14 +243,14 @@ public class EmprestimoDAO {
         Emprestimo emprestimo = new Emprestimo();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo = ? AND e.status_devolucao = ?");
+            stmt = con.prepareStatement("SELECT * FROM emprestimo e INNER JOIN usuario u ON (u.id_usuario = e.id_usuario) WHERE u.cpf = ? AND e.status_emprestimo != ? AND e.status_devolucao = ?");
             stmt.setString(1, cpf);
-            stmt.setString(2, "APROVADO");
+            stmt.setString(2, "RECUSADO");
             stmt.setBoolean(3, false);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 
-                emprestimo.setDataEmpresimo(rs.getDate("data_emprestimo"));
+                emprestimo.setDataEmprestimo(rs.getDate("data_emprestimo"));
                 emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
                 emprestimo.setDataPrevista(rs.getDate("data_prevista"));
                 emprestimo.setStatus_emprestimo(rs.getString("status_emprestimo"));

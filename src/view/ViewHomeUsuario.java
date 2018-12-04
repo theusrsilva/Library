@@ -143,7 +143,7 @@ public class ViewHomeUsuario extends javax.swing.JFrame {
 
     private void jButtonDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolverActionPerformed
         // TODO add your handling code here:
-         EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+        EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
         boolean temEmprestimo = emprestimoDAO.usuarioJaTemEmprestimo(cpfUsuarioLogado);
         if (!temEmprestimo){
             JOptionPane.showMessageDialog(null, "Você não tem empréstimos");
